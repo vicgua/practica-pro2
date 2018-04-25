@@ -1,0 +1,60 @@
+7
+1 2 4 0 0 5 0 0 3 6 0 0 7 0 0
+1 1
+2 2
+3 3
+3 2
+4 3
+1 2
+2 2
+escribir 1
+escribir 2
+escribir 3
+escribir 4
+escribir 5
+escribir 6
+escribir 7
+poner_items 5 XW23 100
+poner_prod XW23
+inventario
+poner_prod XW23
+inventario
+quitar_prod QC32
+quitar_prod XW23
+inventario
+poner_prod XW23
+consultar_prod ZMJ2
+poner_items 5 XW23 100
+consultar_pos 5 2 1
+escribir 5
+consultar_prod XW23
+distribuir AS34 40
+poner_prod AS34
+distribuir AS34 40
+escribir 1
+escribir 2
+escribir 3
+escribir 4
+escribir 5
+escribir 6
+escribir 7
+redimensionar 5 3 2
+escribir 5
+redimensionar 5 7 2
+escribir 5
+quitar_items 7 ASDF 10
+quitar_items 7 XW23 10
+escribir 7
+quitar_items 7 AS34 1
+escribir 7
+poner_prod ZZZZ
+poner_items 7 ZZZZ 5
+escribir 7
+reorganizar 7
+escribir 7
+quitar_items 5 XW23 4
+escribir 5
+compactar 5
+escribir 5
+inventario
+fin
