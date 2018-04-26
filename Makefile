@@ -1,9 +1,9 @@
 .PHONY: all
-all: main.o
+all: main.o Almacen.o
 
 .PHONY: clean
 clean:
-	@rm -rvf main.o
+	@rm -rvf main.o Almacen.o
 
 .PHONY: docs
 docs:

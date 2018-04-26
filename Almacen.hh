@@ -15,20 +15,14 @@ using namespace std;
 /** Esquema de una sala, que contiene solo su identificador
  *      y el tamaño de su estantería.
  * Esto es usado para construir el árbol de salas en Almacen::Almacen().
+ * Se considera inicializado si: id != 0; filas > 0; columnas > 0.
  */
 struct EsquemaSala {
-    /** Identificador de la sala.
-     * @invariant Si inicializado: @c id >= 1. Si @c id == 0, el elemento
-     *      se considerará no inicializado.
-     */
+    /// Identificador de la sala.
     int id;
-    /** Número de filas de la estantería.
-     * @invariant Si inicializado: @c filas > 0.
-     */
+    /// Número de filas de la estantería.
     int filas;
-    /** Número de columnas de la estantería.
-     * @invariant Si inicializado: @c columnas > 0.
-     */
+    /// Número de columnas de la estantería.
     int columnas;
 };
 

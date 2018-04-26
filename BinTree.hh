@@ -40,39 +40,39 @@ class BinTree {
 
 public:
 
-    /// Constructs an empty tree. Θ(1).
+    // Constructs an empty tree. Θ(1).
     BinTree ()
     :   p(nullptr)
     {   }
 
-    /// Constructs a tree with a value x and no subtrees. Θ(1).
+    // Constructs a tree with a value x and no subtrees. Θ(1).
     BinTree (const T& x) {
         p = make_shared<Node>(x, nullptr, nullptr);
     }
 
-    /// Constructs a tree with a value x and two subtrees left and right. Θ(1).
+    // Constructs a tree with a value x and two subtrees left and right. Θ(1).
     BinTree (const T& x, const BinTree& left, const BinTree& right) {
         p = make_shared<Node>(x, left.p, right.p);
     }
 
-    /// Tells if this tree is empty. Θ(1).
+    // Tells if this tree is empty. Θ(1).
     bool empty () const {
         return not p;
     }
 
-    /// Returns the left subtree of this tree (cannot be empty). Θ(1).
+    // Returns the left subtree of this tree (cannot be empty). Θ(1).
     BinTree left () const {
         assert(not empty());
         return BinTree(p->left);
     }
 
-    /// Returns the right subtree of this tree (cannot be empty). Θ(1).
+    // Returns the right subtree of this tree (cannot be empty). Θ(1).
     BinTree right () const {
         assert(not empty());
         return BinTree(p->right);
     }
 
-    /// Returns the value of this tree (cannot be empty). Θ(1).
+    // Returns the value of this tree (cannot be empty). Θ(1).
     const T& value () const {
         assert(not empty());
         return p->x;
