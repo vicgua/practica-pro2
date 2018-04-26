@@ -23,6 +23,7 @@ typedef vector<vector<Producto> > Estanteria;
 class Sala {
 private:
     Estanteria estanteria_;
+    int contar_elementos() const;
 
 public:
     /**
@@ -43,9 +44,9 @@ public:
      * @param cantidad Cantidad de items del producto a añadir como máximo.
      * @returns Cantidad de items que no se han podido añadir por
      *      falta de espacio.
-     * @pre @c cantidad >= 0
+     * @pre @c cantidad >= 0; el producto existe.
      * @post Se han añadido min(`cantidad`, espacio libre en la sala)
-     *      items a la sala; si @e return > 0 => sala llena.
+     *      items a la sala; si @e return > 0 &rArr; sala llena.
      */
     int poner_items(string id_producto, int cantidad);
 
@@ -54,9 +55,9 @@ public:
      * @param cantidad Cantidad de items del producto a quitar como máximo.
      * @returns Cantidad de items que no se han podido quitar porque
      *      no habían suficientes en la sala.
-     * @pre @c cantidad >= 0
+     * @pre @c cantidad >= 0; el producto existe.
      * @post Se han quitado min(`cantidad`, items del producto en la sala)
-     *      items de la sala; si @e return > 0 => No quedan items en la sala.
+     *      items de la sala; si @e return > 0 &rArr; No quedan items en la sala.
      */
     int quitar_items(string id_producto, int cantidad);
 
@@ -79,10 +80,13 @@ public:
      * @param columnas Nuevo número de columnas
      * @pre Número de productos en la estantería <= @c filas * @c columnas;
      *      @c filas > 0; @c columnas > 0.
-     * @post La estantería tiene tamaño @c filas x @c columnas y
-     *      está compactada.
+     * @retval true La estantería ha sido redimensionada y compactada.
+     *      El nuevo tamaño es @c filas x @c columnas.
+     * @retval false No se ha podido redimensionar porque los
+     *      productos actuales no cabrían en el nuevo tamaño.
+     *      No se ha modificado el objeto.
      */
-    void redimensionar(int filas, int columnas);
+    bool redimensionar(int filas, int columnas);
 
     /** Consulta el elemento en la posición (f, c).
      * @param f, c    Posición del producto.

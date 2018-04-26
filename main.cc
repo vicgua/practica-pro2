@@ -10,7 +10,6 @@
 
 using namespace std;
 
-/// @todo Añadir gestión de errores.
 int main() {
     int n;
     cin >> n;
@@ -43,34 +42,45 @@ int main() {
     while ((cin >> inst) and (inst != "fin")) {
         if (inst == "poner_prod") {
             string id;
-            almacen.poner_prod(id);
+            bool ok = almacen.poner_prod(id);
+            if (not ok) cout << "  error" << endl;
 
         } else if (inst == "quitar_prod") {
             string id;
-            almacen.quitar_prod(id);
+            bool ok = almacen.quitar_prod(id);
+            if (not ok) cout << "  error" << endl;
 
         } else if (inst == "poner_items") {
             int sala;
             string id;
             int cantidad;
             cin >> sala >> id >> cantidad;
-            int sobran = almacen.sala(sala).poner_items(id, cantidad);
-            cout << "  " << sobran << endl;
+            if (almacen.existe_producto(id)) {
+                int sobran = almacen.sala(sala).poner_items(id, cantidad);
+                cout << "  " << sobran << endl;
+            } else
+                cout << "  error" << endl;
 
         } else if (inst == "quitar_items") {
             int sala;
             string id;
             int cantidad;
             cin >> sala >> id >> cantidad;
-            int faltan = almacen.sala(sala).quitar_items(id, cantidad);
-            cout << "  " << faltan << endl;
+            if (almacen.existe_producto(id)) {
+                int faltan = almacen.sala(sala).quitar_items(id, cantidad);
+                cout << "  " << faltan << endl;
+            } else
+                cout << "  error" << endl;
 
         } else if (inst == "distribuir") {
             string id;
             int cantidad;
             cin >> id >> cantidad;
             int sobran = almacen.distribuir(id, cantidad);
-            cout << "  " << sobran << endl;
+            if (sobran == -1)
+                cout << "  error" << endl;
+            else
+                cout << "  " << sobran << endl;
 
         } else if (inst == "compactar") {
             int sala;
@@ -86,7 +96,8 @@ int main() {
             int sala;
             int f, c;
             cin >> sala >> f >> c;
-            almacen.sala(sala).redimensionar(f, c);
+            bool ok = almacen.sala(sala).redimensionar(f, c);
+            if (not ok) cout << "  error" << endl;
 
         } else if (inst == "inventario") {
             const map<string, int> &inventario = almacen.inventario();
@@ -112,7 +123,10 @@ int main() {
             string id;
             cin >> id;
             int num = almacen.consultar_prod(id);
-            cout << "  " << num << endl;
+            if (num == -1)
+                cout << "  error" << endl;
+            else
+                cout << "  " << num << endl;
         }
     }
 }

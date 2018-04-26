@@ -45,7 +45,7 @@ public:
      * utilizará para construir el árbol de salas.
      * @pre @c num_salas cumple el invariante de @ref num_salas;
      *      @c esquema_salas tiene al menos un elemento inicializado, y la lista
-     * forma un árbol en preorden. Además, con n = @c esquema_salas.size(),
+     *      forma un árbol en preorden. Además, con n = @c esquema_salas.size(),
      *      existe una única sala para cada entero en el rango [1, n].
      */
     Almacen(int num_salas, const list<EsquemaSala> &esquema_salas);
@@ -53,8 +53,8 @@ public:
     /** Crea una esquema de las salas a partir de un canal de entrada.
      * @param is Canal de entrada.
      * @param[in,out] esquema_salas Esquema de las salas.
-     * @pre @c is contiene un árbol en preorden (=> @c is no está vacío).
-     * @post @c A esquema_salas se ha añadido el árbol leído por @c is.
+     * @pre @c is contiene un árbol en preorden (&rArr; @c is no está vacío).
+     * @post A @c esquema_salas se ha añadido el árbol leído por @c is.
      *      Los EsquemaSala añadidos no se han inicializado.
      */
     static void esquema_desde_stream(istream &is,
@@ -62,22 +62,26 @@ public:
 
     /** Añadir un producto.
      * @param id_producto Identificador del producto.
-     * @pre El producto no existe.
-     * @post El producto ha sido añadido con 0 unidades.
+     * @post Si el producto no existía, ha sido añadido con 0 unidades.
+     * @retval true El producto ha sido añadido.
+     * @retval false El producto ya existe. El objeto no ha sido
+     *      modificado.
      */
-    void poner_prod(string id_producto);
+    bool poner_prod(string id_producto);
 
     /** Quitar un producto.
      * @param id_producto Identificador del producto.
-     * @pre El producto existe y tiene 0 unidades.
-     * @post El producto ha sido eliminado.
+     * @post Si el producto existía y tenía 0 unidades, ha sido eliminado.
+     * @retval true El producto ha sido eliminado.
+     * @retval false El producto no existe o tiene alguna unidad. El objeto no
+     *      ha sido modificado.
      */
-    void quitar_prod(string id_producto);
+    bool quitar_prod(string id_producto);
 
     /** Consultar el número de items que tiene un producto.
      * @param id_producto Identificador del producto.
      * @returns Número de items que tiene el producto.
-     * @pre El producto existe.
+     * @retval -1 El producto no existe.
      */
     int consultar_prod(string id_producto) const;
 
@@ -104,15 +108,23 @@ public:
      * @param id_producto Identificador del producto.
      * @param cantidad Cantidad de items del producto a distribuir.
      * @returns Número de productos que no se han podido almacenar.
-     * @post Los productos están distribuidos por el almacén, según
-     * la política de distribución; si @e return > 0 => el almacén está lleno.
+     * @post Si el producto existe, los items han sido distribuidos por el
+     *      almacén, según la política de distribución;
+     *      si @e return > 0 &rArr; el almacén está lleno.
+     * @retval -1 El producto no existe. El almacén no ha sido modificado.
      */
     int distribuir(string id_producto, int cantidad);
 
     /** Inventario de los productos.
-     * @returns Mapa de (producto &rarr; número de items).
+     * @returns Mapa de [producto &rarr; número de items].
      */
     const map<string, int> &inventario() const;
+
+    /** Comprueba si existe el producto.
+     * @param id_producto Identificador del producto
+     * @returns Si el producto existe.
+     */
+    bool existe_producto(string id_producto) const;
 };
 
 #endif
