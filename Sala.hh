@@ -23,6 +23,7 @@ typedef vector<vector<Producto> > Estanteria;
 class Sala {
 private:
     Estanteria estanteria_;
+
 public:
     /**
      * @param id Identificador de la sala.
@@ -95,7 +96,7 @@ public:
      * @post La estantería se ha escrito a @c os tal y como sería
      *      realmente (con el (0, 0) en la esquina inferior izquierda).
      */
-    void escribir(ostream& os) const;
+    void escribir(ostream &os) const;
 };
 
 #endif // SALA_HH

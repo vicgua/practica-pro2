@@ -2,7 +2,6 @@
 
 #include "Almacen.hh"
 #include "Sala.hh"
-
 #include <iostream>
 #include <list>
 #include <map>
@@ -16,10 +15,10 @@ int main() {
     int n;
     cin >> n;
     list<EsquemaSala> esquema_salas;
-    
+
     // Leer el árbol de salas.
     Almacen::esquema_desde_stream(cin, esquema_salas);
-    
+
     // Leer las dimensiones de las salas.
     vector<pair<int, int>> dimensiones_estanterias(n);
     for (int i = 1; i <= n; ++i) {
@@ -42,7 +41,6 @@ int main() {
     // Procesar instrucciones
     string inst;
     while ((cin >> inst) and (inst != "fin")) {
-
         if (inst == "poner_prod") {
             string id;
             almacen.poner_prod(id);

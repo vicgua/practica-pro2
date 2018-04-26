@@ -1,6 +1,7 @@
 #include "Almacen.hh"
 
-void Almacen::esquema_desde_stream(istream& is, list<EsquemaSala>& esquema_salas) {
+void Almacen::esquema_desde_stream(istream &is,
+                                   list<EsquemaSala> &esquema_salas) {
     EsquemaSala sala;
     is >> sala.id;
     esquema_salas.push_back(sala);
