@@ -2,40 +2,24 @@
 
 #include "Almacen.hh"
 #include "Sala.hh"
+#ifndef NO_DIAGRAM
 #include <iostream>
-#include <list>
 #include <map>
 #include <utility>
 #include <vector>
+#endif
+
 
 using namespace std;
 
+/// @todo Canviar "sala existe" per "1 <= sala <= n"
 int main() {
     int n;
     cin >> n;
-    list<EsquemaSala> esquema_salas;
-
-    // Leer el árbol de salas.
-    Almacen::esquema_desde_stream(cin, esquema_salas);
-
-    // Leer las dimensiones de las salas.
-    vector<pair<int, int>> dimensiones_estanterias(n);
-    for (int i = 1; i <= n; ++i) {
-        int f, c;
-        cin >> f >> c;
-        dimensiones_estanterias[i - 1] = pair<int, int>(f, c);
-    }
-    list<EsquemaSala>::iterator it;
-    for (it = esquema_salas.begin(); it != esquema_salas.end(); ++it) {
-        if (it->id != 0) {
-            pair<int, int> d = dimensiones_estanterias[it->id - 1];
-            it->filas = d.first;
-            it->columnas = d.second;
-        }
-    }
 
     // Crear almacén
-    Almacen almacen(n, esquema_salas);
+    Almacen almacen;
+    almacen.leer(n, cin);
 
     // Procesar instrucciones
     string inst;
@@ -56,7 +40,7 @@ int main() {
             int cantidad;
             cin >> sala >> id >> cantidad;
             if (almacen.existe_producto(id)) {
-                int sobran = almacen.sala(sala).poner_items(id, cantidad);
+                int sobran = almacen.poner_items(sala, id, cantidad);
                 cout << "  " << sobran << endl;
             } else
                 cout << "  error" << endl;
@@ -67,7 +51,7 @@ int main() {
             int cantidad;
             cin >> sala >> id >> cantidad;
             if (almacen.existe_producto(id)) {
-                int faltan = almacen.sala(sala).quitar_items(id, cantidad);
+                int faltan = almacen.quitar_items(sala, id, cantidad);
                 cout << "  " << faltan << endl;
             } else
                 cout << "  error" << endl;
@@ -85,18 +69,18 @@ int main() {
         } else if (inst == "compactar") {
             int sala;
             cin >> sala;
-            almacen.sala(sala).compactar();
+            almacen.compactar(sala);
 
         } else if (inst == "reorganizar") {
             int sala;
             cin >> sala;
-            almacen.sala(sala).reorganizar();
+            almacen.reorganizar(sala);
 
         } else if (inst == "redimensionar") {
             int sala;
             int f, c;
             cin >> sala >> f >> c;
-            bool ok = almacen.sala(sala).redimensionar(f, c);
+            bool ok = almacen.redimensionar(sala, f, c);
             if (not ok) cout << "  error" << endl;
 
         } else if (inst == "inventario") {
@@ -111,12 +95,13 @@ int main() {
         } else if (inst == "escribir") {
             int sala;
             cin >> sala;
-            almacen.sala(sala).escribir(cout);
+            almacen.escribir(sala, cout);
 
         } else if (inst == "consultar_pos") {
             int sala;
             int f, c;
-            string id = almacen.sala(sala).consultar_pos(f, c);
+            cin >> sala >> f >> c;
+            string id = almacen.consultar_pos(sala, f, c);
             cout << "  " << id << endl;
 
         } else if (inst == "consultar_prod") {
