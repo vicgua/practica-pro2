@@ -3,16 +3,14 @@
 #include "Almacen.hh"
 #include "Sala.hh"
 #ifndef NO_DIAGRAM
-#include <iostream>
-#include <map>
-#include <utility>
-#include <vector>
+#    include <iostream>
+#    include <map>
+#    include <utility>
+#    include <vector>
 #endif
-
 
 using namespace std;
 
-/// @todo Canviar "sala existe" per "1 <= sala <= n"
 int main() {
     int n;
     cin >> n;

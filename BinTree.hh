@@ -4,7 +4,6 @@
 #ifndef NO_DIAGRAM
 #include <cassert>
 #include <memory>
-#endif
 
 using namespace std;
 
@@ -79,4 +78,5 @@ public:
     }
 
 };
-#endif
+#endif // NO_DIAGRAM
+#endif // BINTREE_HH

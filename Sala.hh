@@ -1,14 +1,15 @@
 /** @file
- * Archivo que define Sala y estructuras auxiliares, como @ref Estanteria y @ref Producto.
+ * Archivo que define Sala y estructuras auxiliares, como @ref Estanteria y @ref
+ * Producto.
  */
 
 #ifndef SALA_HH
 #define SALA_HH
 
 #ifndef NO_DIAGRAM
-#include <ostream>
-#include <string>
-#include <vector>
+#    include <ostream>
+#    include <string>
+#    include <vector>
 #endif
 
 using namespace std;

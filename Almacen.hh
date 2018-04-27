@@ -6,27 +6,13 @@
 
 #include "Sala.hh"
 #ifndef NO_DIAGRAM
-#include "BinTree.hh"
-#include <istream>
-#include <list>
-#include <map>
+#    include "BinTree.hh"
+#    include <istream>
+#    include <list>
+#    include <map>
 #endif
 
 using namespace std;
-
-/** Esquema de una sala, que contiene solo su identificador
- *      y el tamaño de su estantería.
- * Esto es usado para construir el árbol de salas en Almacen::Almacen().
- * Se considera inicializado si: id != 0; filas > 0; columnas > 0.
- */
-struct EsquemaSala {
-    /// Identificador de la sala.
-    int id;
-    /// Número de filas de la estantería.
-    int filas;
-    /// Número de columnas de la estantería.
-    int columnas;
-};
 
 /** Representación de un almacén. */
 class Almacen {
@@ -43,19 +29,8 @@ private:
      * @pre 1 <= @c id_sala <= número de salas
      */
     Sala &sala(int id_sala);
-    int num_salas_;
-    
-    /** Crea una esquema de las salas a partir de un canal de entrada.
-     * @param is Canal de entrada.
-     * @param[in,out] esquema_salas Esquema de las salas.
-     * @pre @c is contiene un árbol en preorden (&rArr; @c is no está vacío).
-     * @post A @c esquema_salas se ha añadido el árbol leído por @c is.
-     *      Los EsquemaSala añadidos no se han inicializado.
-     */
-    static void esquema_desde_stream(istream &is,
-                                     list<EsquemaSala> &esquema_salas);
-    
 
+    static void leer_estructura(istream &is, BinTree<int> &tree);
 
 public:
     /** Número de salas.
@@ -66,21 +41,11 @@ public:
 
     /// Crea un almacén vacío.
     Almacen();
-    
-    /* Crea un almacén con las salas especificadas en @c esquema_salas.
-     * @param num_salas Número de salas.
-     * @param[in] esquema_salas Lista, en preorden, de las salas, que se
-     *      utilizará para construir el árbol de salas.
-     * @pre @c num_salas cumple el invariante de @ref num_salas;
-     *      @c esquema_salas tiene al menos un elemento inicializado, y la lista
-     *      forma un árbol en preorden. Además, con n = @c esquema_salas.size(),
-     *      existe una única sala para cada entero en el rango [1, n].
-     */
-    //Almacen(int num_salas, const list<EsquemaSala> &esquema_salas);
 
     /** Añadir un producto.
      * @param id_producto Identificador del producto.
-     * @post Si el producto @c id_producto no existía, ha sido añadido con 0 unidades.
+     * @post Si el producto @c id_producto no existía, ha sido añadido con 0
+     * unidades.
      * @retval true El @c id_producto producto ha sido añadido.
      * @retval false El producto @c id_producto ya existe. El objeto no ha sido
      *      modificado.
@@ -103,9 +68,12 @@ public:
      * @param cantidad Cantidad de items del producto a añadir como máximo.
      * @returns Cantidad de items que no se han podido añadir por
      *      falta de espacio.
-     * @pre @c cantidad >= 0; el producto @c id_producto existe; la sala @c id_sala existe.
-     * @post Se han añadido min(`cantidad`, espacio libre en la sala)
-     *      items a la sala; si @e return > 0 &rArr; sala llena.
+     * @retval -1 Si el producto @c id_producto no existe.
+     * @pre @c cantidad >= 0; la sala @c id_sala existe.
+     * @post Si el producto existe, se han añadido
+     *      min(`cantidad`, espacio libre en la sala) items a la sala;
+     *      si @e return > 0 &rArr; sala llena. Si no existe, no se ha
+     *      modificado el objeto.
      * @see Sala::poner_items
      */
     int poner_items(int id_sala, string id_producto, int cantidad);
@@ -116,25 +84,28 @@ public:
      * @param cantidad Cantidad de items del producto a quitar como máximo.
      * @returns Cantidad de items que no se han podido quitar porque
      *      no habían suficientes en la sala.
-     * @pre @c cantidad >= 0; el producto @c id_producto existe; la sala @c id_sala existe.
-     * @post Se han quitado min(`cantidad`, items del producto en la sala)
-     *      items de la sala; si @e return > 0 &rArr; No quedan items en la sala.
+     * @retval -1 Si el producto @c id_producto no existe.
+     * @pre @c cantidad >= 0; 0 < @c id_sala <= @ref num_salas.
+     * @post Si el producto existe, se han quitado
+     *      min(`cantidad`, items del producto en la sala) items de la sala;
+     *      si @e return > 0 &rArr; No quedan items en la sala. Si no existe,
+     *      no se ha modificado el objeto.
      * @see Sala::quitar_items
      */
     int quitar_items(int id_sala, string id_producto, int cantidad);
-    
+
     /** Compactar la estantería de una sala.
      * @param sala Identificador de la sala.
-     * @pre La sala @c sala existe.
+     * @pre 0 < @c sala <= @ref num_salas.
      * @post La estantería de la sala @c sala está compactada.
      * @see Sala::compactar
      */
     void compactar(int sala);
-    
+
     /** Los productos de la estantería de una sala se compactan y se ordenan
      * (ver compactar()) alfabéticamente.
      * @param sala Identificador de la sala.
-     * @pre La sala @c sala existe.
+     * @pre 0 < @c sala <= @ref num_salas.
      * @post La estantería de la sala @c sala está ordenada y compactada.
      * @see Sala::reorganizar
      */
@@ -147,11 +118,11 @@ public:
      * @retval false No se ha podido redimensionar porque los
      *      productos actuales de la sala @c sala no cabrían en el nuevo
      *      tamaño. No se ha modificado el objeto.
-     * @pre La sala @c sala existe.
+     * @pre 0 < @c sala <= @ref num_salas.
      * @see Sala::redimensionar
      */
     bool redimensionar(int sala, int filas, int columnas);
-    
+
     /** Consulta el elemento en la posición (f, c).
      * @param sala Identificador de la sala.
      * @param f, c    Posición del producto.
@@ -161,17 +132,16 @@ public:
      */
     string consultar_pos(int sala, int f, int c) const;
 
-    
     /** Escribe la estantería.
      * @param sala Identificador de la sala.
      * @param os Stream al que escribir la estantería.
-     * @pre La sala @c sala existe.
+     * @pre 0 < @c sala <= @ref num_salas.
      * @post La estantería se ha escrito a @c os tal y como sería
      *      realmente (con el (0, 0) en la esquina inferior izquierda).
      * @see Sala::escribir
      */
     void escribir(int sala, ostream &os) const;
-    
+
     /** Consultar el número de items que tiene un producto.
      * @param id_producto Identificador del producto.
      * @returns Número de items que tiene el producto @c id_producto.
@@ -189,10 +159,11 @@ public:
      *      - Si hay dos salas a continuación,
      *          @f$\left \lfloor{n / 2} \right \rfloor@f$ se distribuyen a la
      *          sala derecha, y los
-     *          @f$\left \lceil{n / 2} \right \rceil@f$ restantes, a la izquierda. Ir a 1.
-     *      - Si hay una sola sala, se distribuyen a esta.
+     *          @f$\left \lceil{n / 2} \right \rceil@f$ restantes, a la
+     *          izquierda. Ir a 1.
+     *      - Si hay una sola sala, se distribuyen a ésta.
      *      - Si no hay ninguna sala a continuación, no se pueden almacenar.
-     * return += n.
+     *          return += n.
      *
      * @param id_producto Identificador del producto.
      * @param cantidad Cantidad de items del producto a distribuir.
@@ -200,9 +171,9 @@ public:
      *      podido almacenar.
      * @retval -1 El producto @c id_producto no existe. El almacén no ha
      *      sido modificado.
-     * @post Si el producto @c id_producto existe, los items han sido distribuidos
-     *      por el almacén, según la política de distribución;
-     *      si @e return > 0 &rArr; el almacén está lleno.
+     * @post Si el producto @c id_producto existe, los items han sido
+     * distribuidos por el almacén, según la política de distribución; si @e
+     * return > 0 &rArr; el almacén está lleno.
      */
     int distribuir(string id_producto, int cantidad);
 
@@ -216,16 +187,18 @@ public:
      * @returns Si el producto @c id_producto existe.
      */
     bool existe_producto(string id_producto) const;
-    
+
     /** Lee las salas por un stream.
      * @param num_salas Número de salas.
      * @param is Stream para leer.
      * @pre @c is contiene un árbol en preorden y @c num_salas dimensiones
-     *      (&rArr; @c is no está vacío).
+     *      (&rArr; @c is no está vacío); el árbol en @c is tiene
+     *      @c num_salas nodos (sin contar los nulos), numerados de
+     *      1 a @c num_salas.
      * @post El objeto ahora tiene @c num_salas salas con la estructura y
      *      dimensiones dadas en @c is.
      */
-    void leer(int num_salas, istream& is);
+    void leer(int num_salas, istream &is);
 };
 
 #endif

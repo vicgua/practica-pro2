@@ -1,29 +1,35 @@
 #include "Almacen.hh"
 #ifndef NO_DIAGRAM
-#include <list>
+#    include <list>
 #endif
 
 // Statics privados
-void Almacen::esquema_desde_stream(istream &is,
-                                   list<EsquemaSala> &esquema_salas) {
-    EsquemaSala sala;
-    is >> sala.id;
-    esquema_salas.push_back(sala);
-    if (sala.id == 0)
-        // Árbol nulo
+void Almacen::leer_estructura(istream &is, BinTree<int> &tree) {
+    int n;
+    is >> n;
+    if (n == 0) {
+        // Caso base: Árbol vacío
+        tree = BinTree<int>();
         return;
-    // Subárbol derecho
-    esquema_desde_stream(is, esquema_salas);
-    // Subárbol izquierdo
-    esquema_desde_stream(is, esquema_salas);
+    }
+    BinTree<int> left, right;
+    leer_estructura(is, left);
+    leer_estructura(is, right);
+    tree = BinTree<int>(n, left, right);
 }
 
-// Statics
+// Métodos públicos
+int Almacen::num_salas() const {
+    return this->salas.size();
+}
+
 void Almacen::leer(int num_salas, istream &is) {
-    (void)num_salas; // Temporal fins implementació
-    (void)is;
-    this->num_salas_ = num_salas;
-    list<EsquemaSala> esquema_salas;
-    //esquema_desde_stream(cin, esquema_salas);
-    //estructura_salas
+    leer_estructura(is, this->estructura_salas);
+    this->salas = vector<Sala>(num_salas);
+    // Leer el tamaño de las estanterías
+    for (int i = 0; i < num_salas; ++i) {
+        int filas, columnas;
+        is >> filas >> columnas;
+        this->salas[i] = Sala(filas, columnas);
+    }
 }
