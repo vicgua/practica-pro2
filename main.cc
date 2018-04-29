@@ -24,11 +24,13 @@ int main() {
     while ((cin >> inst) and (inst != "fin")) {
         if (inst == "poner_prod") {
             string id;
+            cin >> id;
             bool ok = almacen.poner_prod(id);
             if (not ok) cout << "  error" << endl;
 
         } else if (inst == "quitar_prod") {
             string id;
+            cin >> id;
             bool ok = almacen.quitar_prod(id);
             if (not ok) cout << "  error" << endl;
 
