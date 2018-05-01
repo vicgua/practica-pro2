@@ -22,7 +22,7 @@ private:
      */
     BinTree<int> estructura_salas;
     vector<Sala> salas;
-    map<string, int> productos;
+    map<IdProducto, int> productos;
     /** Obtener una sala.
      *
      * @param id_sala
@@ -56,7 +56,7 @@ public:
      * @post
      * Si el producto @c id_producto no existía, ha sido añadido con 0 unidades.
      */
-    bool poner_prod(string id_producto);
+    bool poner_prod(IdProducto id_producto);
 
     /** Quitar un producto.
      *
@@ -74,7 +74,7 @@ public:
      * Si el producto @c id_producto existía y tenía 0 unidades, ha sido
      * eliminado.
      */
-    bool quitar_prod(string id_producto);
+    bool quitar_prod(IdProducto id_producto);
 
     /** Distribuye los productos por el almacén.
      *
@@ -110,7 +110,7 @@ public:
      * el almacén, según la política de distribución; si @e return > 0 &rArr; el
      * almacén está lleno.
      */
-    int distribuir(string id_producto, int cantidad);
+    int distribuir(IdProducto id_producto, int cantidad);
 
     //------------
     // Consultores
@@ -136,14 +136,14 @@ public:
      * @retval -1
      * El producto @c id_producto no existe.
      */
-    int consultar_prod(string id_producto) const;
+    int consultar_prod(IdProducto id_producto) const;
 
     /** Inventario de los productos.
      *
      * @returns
      * Mapa de [producto &rarr; número de items].
      */
-    const map<string, int> &inventario() const;
+    const map<IdProducto, int> &inventario() const;
 
     /** Comprueba si existe el producto.
      *
@@ -153,7 +153,7 @@ public:
      * @returns
      * Si el producto @c id_producto existe.
      */
-    bool existe_producto(string id_producto) const;
+    bool existe_producto(IdProducto id_producto) const;
 
     /** Lee las salas por un stream.
      *
@@ -207,7 +207,7 @@ public:
      * @see
      * Sala::poner_items
      */
-    int poner_items(int id_sala, string id_producto, int cantidad);
+    int poner_items(int id_sala, IdProducto id_producto, int cantidad);
 
     /** Quitar un item de un producto de una sala.
      *
@@ -239,7 +239,7 @@ public:
      * @see
      * Sala::quitar_items
      */
-    int quitar_items(int id_sala, string id_producto, int cantidad);
+    int quitar_items(int id_sala, IdProducto id_producto, int cantidad);
 
     /** Compactar la estantería de una sala.
      *
@@ -316,7 +316,7 @@ public:
      * @see
      * Sala::consultar_pos
      */
-    string consultar_pos(int sala, int f, int c) const;
+    IdProducto consultar_pos(int sala, int f, int c) const;
 
     /** Escribe la estantería.
      *

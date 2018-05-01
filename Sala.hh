@@ -1,6 +1,6 @@
 /** @file
- * Archivo que define Sala y estructuras auxiliares, como @ref Estanteria y @ref
- * Producto.
+ * Archivo que define Sala y estructuras auxiliares, como @ref Estanteria e @ref
+ * IdProducto.
  */
 
 #ifndef SALA_HH
@@ -14,13 +14,13 @@
 
 using namespace std;
 
-/** Representación de un producto.
- * Este es representado por su identificador.
- */
-typedef string Producto;
+/// Representación del identificador de un producto.
+typedef string IdProducto;
 
-/// Representación de una Estantería como una matriz.
-typedef vector<vector<Producto> > Estanteria;
+/** Representación de una Estantería como una matriz de identificadores de
+ * productos.
+ */
+typedef vector<vector<IdProducto> > Estanteria;
 
 /** Representación de una sala.
  *
@@ -70,7 +70,7 @@ public:
      * @see
      * Almacen::poner_items
      */
-    int poner_items(string id_producto, int cantidad);
+    int poner_items(IdProducto id_producto, int cantidad);
 
     /** Quitar un item de un producto de la sala.
      *
@@ -96,7 +96,7 @@ public:
      * @see
      * Almacen::quitar_items
      */
-    int quitar_items(string id_producto, int cantidad);
+    int quitar_items(IdProducto id_producto, int cantidad);
 
     /** Compactar la estantería.
      *
@@ -159,7 +159,7 @@ public:
      * @see
      * Almacen::consultar_pos
      */
-    string consultar_pos(int f, int c) const;
+    IdProducto consultar_pos(int f, int c) const;
 
     /** Escribe la estantería.
      *

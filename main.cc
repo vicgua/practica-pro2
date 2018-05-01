@@ -29,14 +29,14 @@ int main() {
     string inst;
     while ((cin >> inst) and (inst != "fin")) {
         if (inst == "poner_prod") {
-            string id;
+            IdProducto id;
             cin >> id;
             cout << inst << ' ' << id << endl;
             bool ok = almacen.poner_prod(id);
             if (not ok) cout << "  error" << endl;
 
         } else if (inst == "quitar_prod") {
-            string id;
+            IdProducto id;
             cin >> id;
             cout << inst << ' ' << id << endl;
             bool ok = almacen.quitar_prod(id);
@@ -44,7 +44,7 @@ int main() {
 
         } else if (inst == "poner_items") {
             int sala;
-            string id;
+            IdProducto id;
             int cantidad;
             cin >> sala >> id >> cantidad;
             cout << inst << ' ' << sala << ' ' << id << ' ' << cantidad;
@@ -57,7 +57,7 @@ int main() {
 
         } else if (inst == "quitar_items") {
             int sala;
-            string id;
+            IdProducto id;
             int cantidad;
             cin >> sala >> id >> cantidad;
             cout << inst << ' ' << sala << ' ' << id << ' ' << cantidad << endl;
@@ -68,7 +68,7 @@ int main() {
                 cout << "  error" << endl;
 
         } else if (inst == "distribuir") {
-            string id;
+            IdProducto id;
             int cantidad;
             cin >> id >> cantidad;
             cout << inst << ' ' << id << ' ' << cantidad << endl;
@@ -100,8 +100,8 @@ int main() {
 
         } else if (inst == "inventario") {
             cout << inst << endl;
-            const map<string, int> &inventario = almacen.inventario();
-            map<string, int>::const_iterator it;
+            const map<IdProducto, int> &inventario = almacen.inventario();
+            map<IdProducto, int>::const_iterator it;
             for (it = inventario.begin(); it != inventario.end(); ++it) {
                 // Los maps están ordenados, así que el resultado
                 // saldrá ordenado.
@@ -119,11 +119,11 @@ int main() {
             int f, c;
             cin >> sala >> f >> c;
             cout << inst << ' ' << sala << f << ' ' << c << endl;
-            string id = almacen.consultar_pos(sala, f, c);
+            IdProducto id = almacen.consultar_pos(sala, f, c);
             cout << "  " << id << endl;
 
         } else if (inst == "consultar_prod") {
-            string id;
+            IdProducto id;
             cin >> id;
             cout << inst << ' ' << id << endl;
             int num = almacen.consultar_prod(id);
