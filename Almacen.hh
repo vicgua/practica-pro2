@@ -1,5 +1,5 @@
 /** @file
- * Archivo que define Almacen.
+ * Archivo que define %Almacen.
  */
 #ifndef ALMACEN_HH
 #define ALMACEN_HH
@@ -20,7 +20,7 @@ private:
     /** Cómo estan organizadas las salas en el almacén.
      * Cada nodo es el identificador de una sala.
      */
-    BinTree<int> estructura_salas;
+    BinTree<IdSala> estructura_salas;
     vector<Sala> salas;
     map<IdProducto, int> productos;
     /** Obtener una sala.
@@ -34,7 +34,10 @@ private:
      * @pre
      * 1 <= @c id_sala <= número de salas
      */
-    Sala &sala(int id_sala);
+    Sala &sala(IdSala id_sala);
+    /** Igual que sala(IdSala) pero devuelve una referencia constante,
+     * para métodos constantes. */
+    const Sala &sala(IdSala id_sala) const;
 
     static void leer_estructura(istream &is, BinTree<int> &tree);
 
@@ -196,7 +199,7 @@ public:
      * Si el producto @c id_producto no existe.
      *
      * @pre
-     * @c cantidad >= 0; la sala @c id_sala existe.
+     * @c cantidad >= 0; 0 < id_sala <= @ref num_salas.
      *
      * @post
      * Si el producto existe, se han añadido
@@ -207,7 +210,7 @@ public:
      * @see
      * Sala::poner_items
      */
-    int poner_items(int id_sala, IdProducto id_producto, int cantidad);
+    int poner_items(IdSala id_sala, IdProducto id_producto, int cantidad);
 
     /** Quitar un item de un producto de una sala.
      *
@@ -239,11 +242,11 @@ public:
      * @see
      * Sala::quitar_items
      */
-    int quitar_items(int id_sala, IdProducto id_producto, int cantidad);
+    int quitar_items(IdSala id_sala, IdProducto id_producto, int cantidad);
 
     /** Compactar la estantería de una sala.
      *
-     * @param sala
+     * @param id_sala
      * Identificador de la sala.
      *
      * @pre
@@ -255,12 +258,12 @@ public:
      * @see
      * Sala::compactar
      */
-    void compactar(int sala);
+    void compactar(IdSala id_sala);
 
     /** Los productos de la estantería de una sala se compactan (ver
      * compactar()) y se ordenan alfabéticamente.
      *
-     * @param sala
+     * @param id_sala
      * Identificador de la sala.
      *
      * @pre
@@ -273,11 +276,11 @@ public:
      * compactar,
      * Sala::reorganizar
      */
-    void reorganizar(int sala);
+    void reorganizar(IdSala id_sala);
 
     /** Redimensiona la estantería de una sala.
      *
-     * @param sala
+     * @param id_sala
      * Identificador de la sala.
      *
      * @param filas, columnas
@@ -297,11 +300,11 @@ public:
      * @see
      * Sala::redimensionar
      */
-    bool redimensionar(int sala, int filas, int columnas);
+    bool redimensionar(IdSala id_sala, int filas, int columnas);
 
     /** Consulta el elemento en la posición (f, c).
      *
-     * @param sala
+     * @param id_sala
      * Identificador de la sala.
      *
      * @param f, c
@@ -311,16 +314,17 @@ public:
      * El elemento en (f, c) o @c "NULL" si está vacío.
      *
      * @pre
-     * @c f <= Número de filas; @c c <= Número de columnas; @c sala existe.
+     * @c f <= Número de filas; @c c <= Número de columnas; 0 < id_sala <=
+     * @ref num_salas.
      *
      * @see
      * Sala::consultar_pos
      */
-    IdProducto consultar_pos(int sala, int f, int c) const;
+    IdProducto consultar_pos(IdSala id_sala, int f, int c) const;
 
     /** Escribe la estantería.
      *
-     * @param sala
+     * @param id_sala
      * Identificador de la sala.
      *
      * @param os
@@ -336,7 +340,7 @@ public:
      * @see
      * Sala::escribir
      */
-    void escribir(int sala, ostream &os) const;
+    void escribir(IdSala id_sala, ostream &os) const;
 };
 
 #endif

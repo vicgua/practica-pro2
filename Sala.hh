@@ -1,6 +1,6 @@
 /** @file
- * Archivo que define Sala y estructuras auxiliares, como @ref Estanteria e @ref
- * IdProducto.
+ * Archivo que define %Sala y estructuras auxiliares, como Estanteria,
+ * IdProducto e IdSala.
  */
 
 #ifndef SALA_HH
@@ -14,12 +14,13 @@
 
 using namespace std;
 
-/// Representación del identificador de un producto.
+/// Identificador de una sala.
+typedef int IdSala;
+
+/// Identificador de un producto.
 typedef string IdProducto;
 
-/** Representación de una Estantería como una matriz de identificadores de
- * productos.
- */
+/// Estantería, representada como una matriz de identificadores de productos.
 typedef vector<vector<IdProducto> > Estanteria;
 
 /** Representación de una sala.

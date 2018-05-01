@@ -29,73 +29,76 @@ int main() {
     string inst;
     while ((cin >> inst) and (inst != "fin")) {
         if (inst == "poner_prod") {
-            IdProducto id;
-            cin >> id;
-            cout << inst << ' ' << id << endl;
-            bool ok = almacen.poner_prod(id);
+            IdProducto id_producto;
+            cin >> id_producto;
+            cout << inst << ' ' << id_producto << endl;
+            bool ok = almacen.poner_prod(id_producto);
             if (not ok) cout << "  error" << endl;
 
         } else if (inst == "quitar_prod") {
-            IdProducto id;
-            cin >> id;
-            cout << inst << ' ' << id << endl;
-            bool ok = almacen.quitar_prod(id);
+            IdProducto id_producto;
+            cin >> id_producto;
+            cout << inst << ' ' << id_producto << endl;
+            bool ok = almacen.quitar_prod(id_producto);
             if (not ok) cout << "  error" << endl;
 
         } else if (inst == "poner_items") {
-            int sala;
-            IdProducto id;
+            IdSala id_sala;
+            IdProducto id_producto;
             int cantidad;
-            cin >> sala >> id >> cantidad;
-            cout << inst << ' ' << sala << ' ' << id << ' ' << cantidad;
-            cout << endl;
-            if (almacen.existe_producto(id)) {
-                int sobran = almacen.poner_items(sala, id, cantidad);
+            cin >> id_sala >> id_producto >> cantidad;
+            cout << inst << ' ' << id_sala << ' ' << id_producto << ' '
+                 << cantidad << endl;
+            if (almacen.existe_producto(id_producto)) {
+                int sobran =
+                    almacen.poner_items(id_sala, id_producto, cantidad);
                 cout << "  " << sobran << endl;
             } else
                 cout << "  error" << endl;
 
         } else if (inst == "quitar_items") {
-            int sala;
-            IdProducto id;
+            IdSala id_sala;
+            IdProducto id_producto;
             int cantidad;
-            cin >> sala >> id >> cantidad;
-            cout << inst << ' ' << sala << ' ' << id << ' ' << cantidad << endl;
-            if (almacen.existe_producto(id)) {
-                int faltan = almacen.quitar_items(sala, id, cantidad);
+            cin >> id_sala >> id_producto >> cantidad;
+            cout << inst << ' ' << id_sala << ' ' << id_producto << ' '
+                 << cantidad << endl;
+            if (almacen.existe_producto(id_producto)) {
+                int faltan =
+                    almacen.quitar_items(id_sala, id_producto, cantidad);
                 cout << "  " << faltan << endl;
             } else
                 cout << "  error" << endl;
 
         } else if (inst == "distribuir") {
-            IdProducto id;
+            IdProducto id_producto;
             int cantidad;
-            cin >> id >> cantidad;
-            cout << inst << ' ' << id << ' ' << cantidad << endl;
-            int sobran = almacen.distribuir(id, cantidad);
+            cin >> id_producto >> cantidad;
+            cout << inst << ' ' << id_producto << ' ' << cantidad << endl;
+            int sobran = almacen.distribuir(id_producto, cantidad);
             if (sobran == -1)
                 cout << "  error" << endl;
             else
                 cout << "  " << sobran << endl;
 
         } else if (inst == "compactar") {
-            int sala;
-            cin >> sala;
-            cout << inst << ' ' << sala << endl;
-            almacen.compactar(sala);
+            IdSala id_sala;
+            cin >> id_sala;
+            cout << inst << ' ' << id_sala << endl;
+            almacen.compactar(id_sala);
 
         } else if (inst == "reorganizar") {
-            int sala;
-            cin >> sala;
-            cout << inst << ' ' << sala << endl;
-            almacen.reorganizar(sala);
+            IdSala id_sala;
+            cin >> id_sala;
+            cout << inst << ' ' << id_sala << endl;
+            almacen.reorganizar(id_sala);
 
         } else if (inst == "redimensionar") {
-            int sala;
+            IdSala id_sala;
             int f, c;
-            cin >> sala >> f >> c;
-            cout << inst << ' ' << sala << ' ' << f << ' ' << c << endl;
-            bool ok = almacen.redimensionar(sala, f, c);
+            cin >> id_sala >> f >> c;
+            cout << inst << ' ' << id_sala << ' ' << f << ' ' << c << endl;
+            bool ok = almacen.redimensionar(id_sala, f, c);
             if (not ok) cout << "  error" << endl;
 
         } else if (inst == "inventario") {
@@ -109,24 +112,24 @@ int main() {
             }
 
         } else if (inst == "escribir") {
-            int sala;
-            cin >> sala;
-            cout << inst << ' ' << sala << endl;
-            almacen.escribir(sala, cout);
+            IdSala id_sala;
+            cin >> id_sala;
+            cout << inst << ' ' << id_sala << endl;
+            almacen.escribir(id_sala, cout);
 
         } else if (inst == "consultar_pos") {
-            int sala;
+            IdSala id_sala;
             int f, c;
-            cin >> sala >> f >> c;
-            cout << inst << ' ' << sala << f << ' ' << c << endl;
-            IdProducto id = almacen.consultar_pos(sala, f, c);
-            cout << "  " << id << endl;
+            cin >> id_sala >> f >> c;
+            cout << inst << ' ' << id_sala << f << ' ' << c << endl;
+            IdProducto id_producto = almacen.consultar_pos(id_sala, f, c);
+            cout << "  " << id_producto << endl;
 
         } else if (inst == "consultar_prod") {
-            IdProducto id;
-            cin >> id;
-            cout << inst << ' ' << id << endl;
-            int num = almacen.consultar_prod(id);
+            IdProducto id_producto;
+            cin >> id_producto;
+            cout << inst << ' ' << id_producto << endl;
+            int num = almacen.consultar_prod(id_producto);
             if (num == -1)
                 cout << "  error" << endl;
             else
