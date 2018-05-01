@@ -125,6 +125,8 @@ int main() {
                 cout << "  error" << endl;
             else
                 cout << "  " << num << endl;
+        } else {
+            cout << "  error" << endl;
         }
     }
 }
