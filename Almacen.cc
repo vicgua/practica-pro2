@@ -92,28 +92,28 @@ void Almacen::leer(int num_salas, istream &is) {
 // Operaciones de sala
 //--------------------
 
-int Almacen::poner_items(int id_sala, IdProducto id_producto, int cantidad) {
+int Almacen::poner_items(IdSala id_sala, IdProducto id_producto, int cantidad) {
     if (not existe_producto(id_producto)) return -1;
     return sala(id_sala).poner_items(id_producto, cantidad);
 }
 
-int Almacen::quitar_items(int id_sala, IdProducto id_producto, int cantidad) {
+int Almacen::quitar_items(IdSala id_sala, IdProducto id_producto, int cantidad) {
     if (not existe_producto(id_producto)) return -1;
     return sala(id_sala).quitar_items(id_producto, cantidad);
 }
 
-void Almacen::compactar(int id_sala) {
+void Almacen::compactar(IdSala id_sala) {
     sala(id_sala).compactar();
 }
 
-void Almacen::reorganizar(int id_sala) {
+void Almacen::reorganizar(IdSala id_sala) {
     sala(id_sala).reorganizar();
 }
 
-bool Almacen::redimensionar(int id_sala, int filas, int columnas) {
+bool Almacen::redimensionar(IdSala id_sala, int filas, int columnas) {
     return sala(id_sala).redimensionar(filas, columnas);
 }
 
-IdProducto Almacen::consultar_pos(int id_sala, int f, int c) const {
+IdProducto Almacen::consultar_pos(IdSala id_sala, int f, int c) const {
     return sala(id_sala).consultar_pos(f, c);
 }
