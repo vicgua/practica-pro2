@@ -11,6 +11,12 @@
 
 using namespace std;
 
+/** Punto de entrada del programa.
+ *
+ * main() crea el almacén y contiene el bucle a partir de lectura de
+ * instrucciones y escritura de resultados. Las operaciones en sí están
+ * definidas e implementadas en las clases Almacen y Sala.
+ */
 int main() {
     int n;
     cin >> n;
