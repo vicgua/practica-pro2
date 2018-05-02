@@ -93,7 +93,7 @@ public:
      *          izquierda. Ir a 1.
      *      - Si hay una sola sala, se distribuyen a ésta.
      *      - Si no hay ninguna sala a continuación, no se pueden almacenar.
-     *          return += n.
+     *          @em return += n.
      *
      * @param id_producto
      * Identificador del producto.
@@ -196,7 +196,7 @@ public:
      * Cantidad de items que no se han podido añadir por falta de espacio.
      *
      * @retval -1
-     * Si el producto @c id_producto no existe.
+     * El producto @c id_producto no existe.
      *
      * @pre
      * @c cantidad >= 0; 0 < id_sala <= @ref num_salas.
@@ -228,7 +228,7 @@ public:
      * suficientes en la sala.
      *
      * @retval -1
-     * Si el producto @c id_producto no existe.
+     * El producto @c id_producto no existe.
      *
      * @pre
      * @c cantidad >= 0; 0 < @c id_sala <= @ref num_salas.
