@@ -1,6 +1,6 @@
 /** @file
- * Archivo que define %Sala y estructuras auxiliares, como Estanteria,
- * IdProducto e IdSala.
+ * Archivo que define Sala y estructuras auxiliares, como @ref Estanteria,
+ * @ref IdProducto e @ref IdSala.
  */
 
 #ifndef SALA_HH

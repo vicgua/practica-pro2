@@ -1,5 +1,5 @@
 /** @file
- * Archivo que define %Almacen.
+ * Archivo que define Almacen.
  */
 #ifndef ALMACEN_HH
 #define ALMACEN_HH
