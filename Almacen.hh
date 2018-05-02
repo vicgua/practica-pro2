@@ -10,7 +10,7 @@
 #    include <istream>
 #    include <list>
 #    include <map>
-#endif
+#endif // NO_DIAGRAM
 
 using namespace std;
 
@@ -343,4 +343,4 @@ public:
     void escribir(IdSala id_sala, ostream &os) const;
 };
 
-#endif
+#endif // ALMACEN_HH

@@ -7,7 +7,7 @@
 #    include <map>
 #    include <utility>
 #    include <vector>
-#endif
+#endif // NO_DIAGRAM
 
 using namespace std;
 
