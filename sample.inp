@@ -56,5 +56,7 @@ quitar_items 5 XW23 4
 escribir 5
 compactar 5
 escribir 5
+consultar_pos 5 1 1
+consultar_pos 5 7 1
 inventario
 fin
