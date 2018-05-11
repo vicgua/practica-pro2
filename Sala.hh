@@ -10,6 +10,7 @@
 #    include <ostream>
 #    include <string>
 #    include <vector>
+#    include <utility>
 #endif
 
 using namespace std;
@@ -30,8 +31,10 @@ typedef vector<vector<IdProducto> > Estanteria;
  */
 class Sala {
 private:
-    Estanteria estanteria_;
+    Estanteria estanteria;
     int elementos;
+
+    int filas, columnas;
 
 public:
     /// Crea una sala vacía.
@@ -155,7 +158,7 @@ public:
      * El elemento en (f, c) o @c "NULL" si está vacío.
      *
      * @pre
-     * 0 <= @c f <= Número de filas; 0 <= @c c <= Número de columnas.
+     * 0 < @c f <= Número de filas; 0 < @c c <= Número de columnas.
      *
      * @see
      * Almacen::consultar_pos

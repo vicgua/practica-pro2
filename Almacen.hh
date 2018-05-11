@@ -14,6 +14,9 @@
 
 using namespace std;
 
+/// Inventario, representado como un map [Producto -> cantidad]
+typedef map<IdProducto, int> Inventario;
+
 /** Representación de un almacén. */
 class Almacen {
 private:
@@ -22,7 +25,7 @@ private:
      */
     BinTree<IdSala> estructura_salas;
     vector<Sala> salas;
-    map<IdProducto, int> productos;
+    Inventario productos;
     /** Obtener una sala.
      *
      * @param id_sala
@@ -146,17 +149,7 @@ public:
      * @returns
      * Mapa de [producto &rarr; número de items].
      */
-    const map<IdProducto, int> &inventario() const;
-
-    /** Comprueba si existe el producto.
-     *
-     * @param id_producto
-     * Identificador del producto
-     *
-     * @returns
-     * Si el producto @c id_producto existe.
-     */
-    bool existe_producto(IdProducto id_producto) const;
+    const Inventario &inventario() const;
 
     /** Lee las salas por un stream.
      *

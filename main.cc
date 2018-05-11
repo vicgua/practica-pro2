@@ -49,11 +49,10 @@ int main() {
             cin >> id_sala >> id_producto >> cantidad;
             cout << inst << ' ' << id_sala << ' ' << id_producto << ' '
                  << cantidad << endl;
-            if (almacen.existe_producto(id_producto)) {
-                int sobran =
-                    almacen.poner_items(id_sala, id_producto, cantidad);
+            int sobran = almacen.poner_items(id_sala, id_producto, cantidad);
+            if (sobran != -1)
                 cout << "  " << sobran << endl;
-            } else
+            else
                 cout << "  error" << endl;
 
         } else if (inst == "quitar_items") {
@@ -63,11 +62,10 @@ int main() {
             cin >> id_sala >> id_producto >> cantidad;
             cout << inst << ' ' << id_sala << ' ' << id_producto << ' '
                  << cantidad << endl;
-            if (almacen.existe_producto(id_producto)) {
-                int faltan =
-                    almacen.quitar_items(id_sala, id_producto, cantidad);
+            int faltan = almacen.quitar_items(id_sala, id_producto, cantidad);
+            if (faltan != -1)
                 cout << "  " << faltan << endl;
-            } else
+            else
                 cout << "  error" << endl;
 
         } else if (inst == "distribuir") {
@@ -76,10 +74,10 @@ int main() {
             cin >> id_producto >> cantidad;
             cout << inst << ' ' << id_producto << ' ' << cantidad << endl;
             int sobran = almacen.distribuir(id_producto, cantidad);
-            if (sobran == -1)
-                cout << "  error" << endl;
-            else
+            if (sobran != -1)
                 cout << "  " << sobran << endl;
+            else
+                cout << "  error" << endl;
 
         } else if (inst == "compactar") {
             IdSala id_sala;

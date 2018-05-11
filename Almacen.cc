@@ -32,8 +32,9 @@ Almacen::Almacen() {} // Constructor por defecto
 //-----------------
 
 bool Almacen::poner_prod(IdProducto id_producto) {
-    if (existe_producto(id_producto)) return false;
-    productos[id_producto] = 0;
+    Inventario::iterator it = productos.find(id_producto);
+    if (it != productos.end()) return false;
+    productos.insert({id_producto, 0});
     return true;
 }
 
@@ -72,10 +73,9 @@ const map<IdProducto, int> &Almacen::inventario() const {
     return productos;
 }
 
-bool Almacen::existe_producto(IdProducto id_producto) const {
-    return productos.count(id_producto) > 0;
-    // (map::count sólo devuelve 0 si está o 1 si no)
-}
+//----
+// I/O
+//----
 
 void Almacen::leer(int num_salas, istream &is) {
     leer_estructura(is, this->estructura_salas);
@@ -93,13 +93,19 @@ void Almacen::leer(int num_salas, istream &is) {
 //--------------------
 
 int Almacen::poner_items(IdSala id_sala, IdProducto id_producto, int cantidad) {
-    if (not existe_producto(id_producto)) return -1;
-    return sala(id_sala).poner_items(id_producto, cantidad);
+    Inventario::iterator it = productos.find(id_producto);
+    if (it == productos.end()) return -1; // El producto no existe
+    int sobran = sala(id_sala).poner_items(id_producto, cantidad);
+    it->second += cantidad - sobran;
+    return sobran;
 }
 
 int Almacen::quitar_items(IdSala id_sala, IdProducto id_producto, int cantidad) {
-    if (not existe_producto(id_producto)) return -1;
-    return sala(id_sala).quitar_items(id_producto, cantidad);
+    Inventario::iterator it = productos.find(id_producto);
+    if (it == productos.end()) return -1; // El producto no existe
+    int faltan = sala(id_sala).quitar_items(id_producto, cantidad);
+    it->second -= cantidad - faltan;
+    return faltan;
 }
 
 void Almacen::compactar(IdSala id_sala) {
