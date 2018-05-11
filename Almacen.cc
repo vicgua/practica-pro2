@@ -25,11 +25,11 @@ void Almacen::leer_estructura(istream &is, BinTree<int> &tree) {
 // Métodos públicos
 //-----------------
 
-Sala& Almacen::sala(IdSala id_sala) {
+Sala &Almacen::sala(IdSala id_sala) {
     return salas[id_sala - 1];
 }
 
-const Sala& Almacen::sala(IdSala id_sala) const {
+const Sala &Almacen::sala(IdSala id_sala) const {
     return salas[id_sala - 1];
 }
 
@@ -116,7 +116,8 @@ int Almacen::poner_items(IdSala id_sala, IdProducto id_producto, int cantidad) {
     return sobran;
 }
 
-int Almacen::quitar_items(IdSala id_sala, IdProducto id_producto, int cantidad) {
+int Almacen::quitar_items(IdSala id_sala, IdProducto id_producto,
+                          int cantidad) {
     Inventario::iterator it = productos.find(id_producto);
     if (it == productos.end()) return -1; // El producto no existe
     int faltan = sala(id_sala).quitar_items(id_producto, cantidad);

@@ -1,7 +1,7 @@
 #include "Sala.hh"
 #ifndef NO_DIAGRAM
-#include <algorithm> // std::sort
-#include <utility> // std::move
+#    include <algorithm> // std::sort
+#    include <utility>   // std::move
 #endif
 
 //-----------------
@@ -91,8 +91,7 @@ void Sala::reorganizar() {
 
 bool Sala::redimensionar(int filas, int columnas) {
     int nuevo_tamano = filas * columnas;
-    if (nuevo_tamano < elementos)
-        return false;
+    if (nuevo_tamano < elementos) return false;
     Estanteria nueva_est(nuevo_tamano, "");
     int ni = 0;
     for (int i = 0; i < estanteria.size(); ++i) {
@@ -113,11 +112,9 @@ IdProducto Sala::consultar_pos(int f, int c) const {
     int i = filas - f;
     int j = c - 1;
     IdProducto p = estanteria[i * columnas + j];
-    if (p.empty())
-        return "NULL";
+    if (p.empty()) return "NULL";
     return p;
 }
-
 
 //----
 // I/O
@@ -126,9 +123,7 @@ IdProducto Sala::consultar_pos(int f, int c) const {
 void Sala::escribir(ostream &os) const {
     for (int i = filas - 1; i >= 0; --i) {
         os << estanteria[i][0];
-        for (int j = 1; j < columnas; ++j) {
-            os << ' ' << estanteria[i][j];
-        }
+        for (int j = 1; j < columnas; ++j) { os << ' ' << estanteria[i][j]; }
         os << endl;
     }
 }

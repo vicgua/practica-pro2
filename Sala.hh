@@ -7,10 +7,10 @@
 #define SALA_HH
 
 #ifndef NO_DIAGRAM
+#    include <map>
 #    include <ostream>
 #    include <string>
 #    include <vector>
-#    include <map>
 #endif
 
 using namespace std;
@@ -22,9 +22,10 @@ typedef int IdSala;
 typedef string IdProducto;
 
 /** Estantería, representada como un vector de identificadores de productos.
- * 
- * Este vector puede ser representado como una matriz, donde la posición @f$ (i, j) @f$
- * está en la posición @f$ i \cdot N + j @f$ donde @f$ N @f$ es el número de columnas.
+ *
+ * Este vector puede ser representado como una matriz, donde la posición @f$ (i,
+ * j) @f$ está en la posición @f$ i \cdot N + j @f$ donde @f$ N @f$ es el número
+ * de columnas.
  */
 typedef vector<IdProducto> Estanteria;
 
@@ -42,17 +43,18 @@ private:
     Inventario inventario;
     int elementos;
     int filas, columnas;
-    
+
     static bool comp_IdProducto(const IdProducto &a, const IdProducto &b);
 
     /** Calcula la posición en el vector de la posición (i, j) de la estantería.
-     * 
+     *
      * @param i, j Posición de la estantería que queremos obtener.
      * @pre 0 <= @c i < Total de filas, 0 <= @c j < Total de columnas.
      * @post Existe la posición del vector retornada.
      * @returns La posición en el vector de la posición (i, j) de la estantería.
      */
     int offset_pos(int i, int j) const;
+
 public:
     /// Crea una sala vacía.
     Sala();
