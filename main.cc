@@ -119,7 +119,7 @@ int main() {
             IdSala id_sala;
             int f, c;
             cin >> id_sala >> f >> c;
-            cout << inst << ' ' << id_sala << f << ' ' << c << endl;
+            cout << inst << ' ' << id_sala << ' ' << f << ' ' << c << endl;
             IdProducto id_producto = almacen.consultar_pos(id_sala, f, c);
             cout << "  " << id_producto << endl;
 
@@ -133,7 +133,9 @@ int main() {
             else
                 cout << "  " << num << endl;
         } else {
+            cout << inst << endl;
             cout << "  error" << endl;
         }
     }
+    cout << "fin" << endl;
 }

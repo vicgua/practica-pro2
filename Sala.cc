@@ -1,5 +1,6 @@
 #include "Sala.hh"
 #ifndef NO_DIAGRAM
+#    include <cassert>
 #    include <algorithm> // std::sort
 #    include <utility>   // std::move
 #endif
@@ -29,8 +30,10 @@ bool Sala::comp_IdProducto(const IdProducto &a, const IdProducto &b) {
 Sala::Sala() {}
 
 Sala::Sala(int filas, int columnas) {
+    assert(filas > 0 and columnas > 0);
     this->filas = filas;
     this->columnas = columnas;
+    this->elementos = 0;
     estanteria = Estanteria(filas * columnas, "");
 }
 
@@ -38,6 +41,8 @@ Sala::Sala(int filas, int columnas) {
 // Métodos públicos
 //-----------------
 int Sala::poner_items(IdProducto producto, int cantidad) {
+    if (elementos == filas * columnas)
+        return cantidad; // No cabe ningún ítem en esta sala
     int anadidos = 0;
     for (int i = 0; cantidad > 0 and i < estanteria.size(); ++i) {
         if (estanteria[i].empty()) {
@@ -52,6 +57,9 @@ int Sala::poner_items(IdProducto producto, int cantidad) {
 }
 
 int Sala::quitar_items(IdProducto producto, int cantidad) {
+    Inventario::iterator it = inventario.find(producto);
+    if (it == inventario.end())
+        return cantidad; // No hay ningún ítem en esta sala
     int quitados = 0;
     for (int i = 0; cantidad > 0 and i < estanteria.size(); ++i) {
         if (estanteria[i] == producto) {
@@ -61,7 +69,6 @@ int Sala::quitar_items(IdProducto producto, int cantidad) {
             --elementos;
         }
     }
-    Inventario::iterator it = inventario.find(producto);
     it->second -= quitados;
     if (it->second == 0) {
         inventario.erase(it); // Elimina las entradas sin productos
@@ -101,6 +108,8 @@ bool Sala::redimensionar(int filas, int columnas) {
         }
     }
     estanteria = move(nueva_est);
+    this->filas = filas;
+    this->columnas = columnas;
     return true;
 }
 
@@ -109,6 +118,8 @@ bool Sala::redimensionar(int filas, int columnas) {
 //------------
 
 IdProducto Sala::consultar_pos(int f, int c) const {
+    assert(0 < f and f <= filas);
+    assert(0 < c and c <= columnas);
     int i = filas - f;
     int j = c - 1;
     IdProducto p = estanteria[i * columnas + j];
@@ -122,8 +133,21 @@ IdProducto Sala::consultar_pos(int f, int c) const {
 
 void Sala::escribir(ostream &os) const {
     for (int i = filas - 1; i >= 0; --i) {
-        os << estanteria[i][0];
-        for (int j = 1; j < columnas; ++j) { os << ' ' << estanteria[i][j]; }
+        os << ' ';
+        for (int j = 0; j < columnas; ++j) {
+            IdProducto id_producto = estanteria[i * columnas + j];
+            if (id_producto.empty()) {
+                os << " NULL";
+            } else {
+                os << ' ' << id_producto;
+            }
+        }
         os << endl;
+    }
+    Inventario::const_iterator it = inventario.begin();
+    os << "  " << elementos << endl;
+    while (it != inventario.end()) {
+        os << "  " << it->first << ' ' << it->second << endl;
+        ++it;
     }
 }

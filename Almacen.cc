@@ -26,6 +26,7 @@ void Almacen::leer_estructura(istream &is, BinTree<int> &tree) {
 //-----------------
 
 Sala &Almacen::sala(IdSala id_sala) {
+    assert(0 < id_sala and id_sala <= salas.size());
     return salas[id_sala - 1];
 }
 
@@ -91,12 +92,12 @@ const map<IdProducto, int> &Almacen::inventario() const {
 
 void Almacen::leer(int num_salas, istream &is) {
     leer_estructura(is, this->estructura_salas);
-    this->salas = vector<Sala>(num_salas);
+    salas = vector<Sala>(num_salas);
     // Leer el tamaño de las estanterías
     for (int i = 0; i < num_salas; ++i) {
         int filas, columnas;
         is >> filas >> columnas;
-        this->salas[i] = Sala(filas, columnas);
+        salas[i] = Sala(filas, columnas);
     }
 }
 
