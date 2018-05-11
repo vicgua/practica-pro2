@@ -10,7 +10,7 @@
 #    include <ostream>
 #    include <string>
 #    include <vector>
-#    include <utility>
+#    include <map>
 #endif
 
 using namespace std;
@@ -43,7 +43,7 @@ private:
     int elementos;
     int filas, columnas;
     
-    static bool 
+    static bool comp_IdProducto(const IdProducto &a, const IdProducto &b);
 
     /** Calcula la posición en el vector de la posición (i, j) de la estantería.
      * 
@@ -52,7 +52,7 @@ private:
      * @post Existe la posición del vector retornada.
      * @returns La posición en el vector de la posición (i, j) de la estantería.
      */
-    int offset_pos(int i, int j);
+    int offset_pos(int i, int j) const;
 public:
     /// Crea una sala vacía.
     Sala();

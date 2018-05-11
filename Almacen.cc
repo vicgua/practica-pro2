@@ -21,6 +21,18 @@ void Almacen::leer_estructura(istream &is, BinTree<int> &tree) {
     tree = BinTree<int>(n, left, right);
 }
 
+//-----------------
+// Métodos públicos
+//-----------------
+
+Sala& Almacen::sala(IdSala id_sala) {
+    return salas[id_sala - 1];
+}
+
+const Sala& Almacen::sala(IdSala id_sala) const {
+    return salas[id_sala - 1];
+}
+
 //--------------
 // Constructores
 //--------------
@@ -86,6 +98,10 @@ void Almacen::leer(int num_salas, istream &is) {
         is >> filas >> columnas;
         this->salas[i] = Sala(filas, columnas);
     }
+}
+
+void Almacen::escribir(IdSala id_sala, ostream &os) const {
+    sala(id_sala).escribir(os);
 }
 
 //--------------------
