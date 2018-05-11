@@ -74,8 +74,11 @@ bool Almacen::quitar_prod(IdProducto id_producto) {
 }
 
 int Almacen::distribuir(IdProducto id_producto, int cantidad) {
-    if (productos.count(id_producto) == 0) return -1; // El producto no existe
-    return i_distribuir(estructura_salas, id_producto, cantidad);
+    Inventario::iterator it = productos.find(id_producto);
+    if (it == productos.end()) return -1; // El producto no existe
+    int sobran = i_distribuir(estructura_salas, id_producto, cantidad);
+    it->second += cantidad - sobran;
+    return sobran;
 }
 
 //------------
