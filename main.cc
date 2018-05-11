@@ -2,9 +2,9 @@
 
 #include "Almacen.hh"
 #include "Sala.hh"
+#include "aux.hh"
 #ifndef NO_DIAGRAM
 #    include <iostream>
-#    include <map>
 #    include <utility>
 #    include <vector>
 #endif // NO_DIAGRAM
@@ -101,11 +101,9 @@ int main() {
 
         } else if (inst == "inventario") {
             cout << inst << endl;
-            const map<IdProducto, int> &inventario = almacen.inventario();
-            map<IdProducto, int>::const_iterator it;
+            const Inventario &inventario = almacen.inventario();
+            Inventario::const_iterator it;
             for (it = inventario.begin(); it != inventario.end(); ++it) {
-                // Los maps están ordenados, así que el resultado
-                // saldrá ordenado.
                 cout << "  " << it->first << " " << it->second << endl;
             }
 

@@ -5,11 +5,11 @@
 #define ALMACEN_HH
 
 #include "Sala.hh"
+#include "aux.hh"
 #ifndef NO_DIAGRAM
 #    include "BinTree.hh"
 #    include <istream>
-#    include <list>
-#    include <map>
+#    include <ostream>
 #endif // NO_DIAGRAM
 
 using namespace std;

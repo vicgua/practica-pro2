@@ -6,10 +6,9 @@
 #ifndef SALA_HH
 #define SALA_HH
 
+#include "aux.hh"
 #ifndef NO_DIAGRAM
-#    include <map>
 #    include <ostream>
-#    include <string>
 #    include <vector>
 #endif
 
@@ -18,9 +17,6 @@ using namespace std;
 /// Identificador de una sala.
 typedef int IdSala;
 
-/// Identificador de un producto.
-typedef string IdProducto;
-
 /** Estantería, representada como un vector de identificadores de productos.
  *
  * Este vector puede ser representado como una matriz, donde la posición @f$ (i,
@@ -28,9 +24,6 @@ typedef string IdProducto;
  * de columnas.
  */
 typedef vector<IdProducto> Estanteria;
-
-/// Inventario, representado como un map [Producto &rarr; cantidad]
-typedef map<IdProducto, int> Inventario;
 
 /** Representación de una sala.
  *
