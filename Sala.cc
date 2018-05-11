@@ -1,17 +1,9 @@
 #include "Sala.hh"
 #ifndef NO_DIAGRAM
-#    include <cassert>
 #    include <algorithm> // std::sort
-#    include <utility>   // std::move
+#    include <cassert>
+#    include <utility> // std::move
 #endif
-
-//-----------------
-// Métodos privados
-//-----------------
-
-inline int Sala::offset_pos(int i, int j) const {
-    return i * columnas + j;
-}
 
 //-----------------
 // Statics privados

@@ -29,7 +29,7 @@ typedef string IdProducto;
  */
 typedef vector<IdProducto> Estanteria;
 
-/// Inventario, representado como un map [Producto -> cantidad]
+/// Inventario, representado como un map [Producto &rarr; cantidad]
 typedef map<IdProducto, int> Inventario;
 
 /** Representación de una sala.
@@ -45,15 +45,6 @@ private:
     int filas, columnas;
 
     static bool comp_IdProducto(const IdProducto &a, const IdProducto &b);
-
-    /** Calcula la posición en el vector de la posición (i, j) de la estantería.
-     *
-     * @param i, j Posición de la estantería que queremos obtener.
-     * @pre 0 <= @c i < Total de filas, 0 <= @c j < Total de columnas.
-     * @post Existe la posición del vector retornada.
-     * @returns La posición en el vector de la posición (i, j) de la estantería.
-     */
-    int offset_pos(int i, int j) const;
 
 public:
     /// Crea una sala vacía.
@@ -71,22 +62,22 @@ public:
      */
     Sala(int filas, int columnas);
 
-    /** Poner un item de un producto en la sala.
+    /** Poner un ítem de un producto en la sala.
      *
      * @param id_producto
      * Identificador del producto.
      *
      * @param cantidad
-     * Cantidad de items del producto a añadir como máximo.
+     * Cantidad de ítems del producto a añadir como máximo.
      *
      * @returns
-     * Cantidad de items que no se han podido añadir por falta de espacio.
+     * Cantidad de ítems que no se han podido añadir por falta de espacio.
      *
      * @pre
      * @c cantidad >= 0; el producto @c id_producto existe.
      *
      * @post
-     * Se han añadido min(`cantidad`, espacio libre en la sala) items del
+     * Se han añadido min(`cantidad`, espacio libre en la sala) ítems del
      * producto @c id_producto a la sala; si @e return > 0 &rArr; sala llena; @b
      * NO se han añadido los productos al inventario del almacén.
      *
@@ -95,25 +86,25 @@ public:
      */
     int poner_items(IdProducto id_producto, int cantidad);
 
-    /** Quitar un item de un producto de la sala.
+    /** Quitar un ítem de un producto de la sala.
      *
      * @param id_producto
      * Identificador del producto.
      *
      * @param cantidad
-     * Cantidad de items del producto a quitar como máximo.
+     * Cantidad de ítems del producto a quitar como máximo.
      *
      * @returns
-     * Cantidad de items que no se han podido quitar porque no habían
+     * Cantidad de ítems que no se han podido quitar porque no habían
      * suficientes en la sala.
      *
      * @pre
      * @c cantidad >= 0; el producto @c id_producto existe.
      *
      * @post
-     * Se han quitado min(`cantidad`, items del producto en la sala) items del
+     * Se han quitado min(`cantidad`, ítems del producto en la sala) ítems del
      * producto @c id_producto de la sala; si @e return > 0 &rArr; No quedan
-     * items en la sala; @b NO se han quitado los productos del inventario del
+     * ítems en la sala; @b NO se han quitado los productos del inventario del
      * almacén.
      *
      * @see

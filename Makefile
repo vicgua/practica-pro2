@@ -24,4 +24,4 @@ latex: docs
 
 .PHONY: test
 test: practica.exe sample.inp sample.cor
-	./practica.exe < sample.inp
+	./practica.exe < sample.inp | diff - sample.cor

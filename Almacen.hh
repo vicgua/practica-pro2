@@ -23,6 +23,9 @@ private:
     BinTree<IdSala> estructura_salas;
     vector<Sala> salas;
     Inventario productos;
+
+    static void leer_estructura(istream &is, BinTree<int> &tree);
+
     /** Obtener una sala.
      *
      * @param id_sala
@@ -39,7 +42,31 @@ private:
      * para métodos constantes. */
     const Sala &sala(IdSala id_sala) const;
 
-    static void leer_estructura(istream &is, BinTree<int> &tree);
+    /** Función de inmersión de distribuir().
+     *
+     * @param tree
+     * Árbol que se usará para determinar en qué sala se pondrán los ítems.
+     * Este árbol contendrá los identificadores de sala. El árbol puede estar
+     * vacío, en cuyo caso no se pondrá ningún ítem.
+     *
+     * @param id_producto
+     * Identificador del producto.
+     *
+     * @param cantidad
+     * Cantidad de ítems del producto
+     *
+     * @returns
+     * Número de ítems que no se han podido almacenar.
+     *
+     * @pre
+     * @c id_producto existe (es decir, está en el inventario).
+     *
+     * @post
+     * Los ítems han sido distribuidos por el almacén, según la política de
+     * distribución.
+     */
+    int i_distribuir(const BinTree<IdSala> &tree, IdProducto id_producto,
+                     int cantidad);
 
 public:
     /// Crea un almacén vacío.
@@ -99,17 +126,17 @@ public:
      * Identificador del producto.
      *
      * @param cantidad
-     * Cantidad de items del producto a distribuir.
+     * Cantidad de ítems del producto a distribuir.
      *
      * @returns
-     * Número de items del producto @c id_producto que no se han podido
+     * Número de ítems del producto @c id_producto que no se han podido
      * almacenar.
      *
      * @retval -1
      * El producto @c id_producto no existe. El almacén no ha sido modificado.
      *
      * @post
-     * Si el producto @c id_producto existe, los items han sido distribuidos por
+     * Si el producto @c id_producto existe, los ítems han sido distribuidos por
      * el almacén, según la política de distribución; si @e return > 0 &rArr; el
      * almacén está lleno.
      */
@@ -128,13 +155,13 @@ public:
      */
     int num_salas() const;
 
-    /** Consultar el número de items que tiene un producto.
+    /** Consultar el número de ítems que tiene un producto.
      *
      * @param id_producto
      * Identificador del producto.
      *
      * @returns
-     * Número de items que tiene el producto @c id_producto.
+     * Número de ítems que tiene el producto @c id_producto.
      *
      * @retval -1
      * El producto @c id_producto no existe.
@@ -144,7 +171,7 @@ public:
     /** Inventario de los productos.
      *
      * @returns
-     * Mapa de [producto &rarr; número de items].
+     * Mapa de [producto &rarr; número de ítems].
      */
     const Inventario &inventario() const;
 
@@ -171,7 +198,7 @@ public:
     // Operaciones de sala
     //--------------------
 
-    /** Poner un item de un producto en una sala.
+    /** Poner un ítem de un producto en una sala.
      *
      * @param id_sala
      * Identificador de la sala.
@@ -180,10 +207,10 @@ public:
      * Identificador del producto.
      *
      * @param cantidad
-     * Cantidad de items del producto a añadir como máximo.
+     * Cantidad de ítems del producto a añadir como máximo.
      *
      * @returns
-     * Cantidad de items que no se han podido añadir por falta de espacio.
+     * Cantidad de ítems que no se han podido añadir por falta de espacio.
      *
      * @retval -1
      * El producto @c id_producto no existe.
@@ -193,7 +220,7 @@ public:
      *
      * @post
      * Si el producto existe, se han añadido
-     * min(`cantidad`, espacio libre en la sala) items a la sala;
+     * min(`cantidad`, espacio libre en la sala) ítems a la sala;
      * si @e return > 0 &rArr; sala llena. Si no existe, no se ha modificado el
      * objeto.
      *
@@ -202,7 +229,7 @@ public:
      */
     int poner_items(IdSala id_sala, IdProducto id_producto, int cantidad);
 
-    /** Quitar un item de un producto de una sala.
+    /** Quitar un ítem de un producto de una sala.
      *
      * @param id_sala
      * Identificador de la sala
@@ -211,10 +238,10 @@ public:
      * Identificador del producto.
      *
      * @param cantidad
-     * Cantidad de items del producto a quitar como máximo.
+     * Cantidad de ítems del producto a quitar como máximo.
      *
      * @returns
-     * Cantidad de items que no se han podido quitar porque no habían
+     * Cantidad de ítems que no se han podido quitar porque no habían
      * suficientes en la sala.
      *
      * @retval -1
@@ -225,8 +252,8 @@ public:
      *
      * @post
      * Si el producto existe, se han quitado
-     * min(`cantidad`, items del producto en la sala) items de la sala;
-     * si @e return > 0 &rArr; No quedan items en la sala. Si no existe, no se
+     * min(`cantidad`, ítems del producto en la sala) ítems de la sala;
+     * si @e return > 0 &rArr; No quedan ítems en la sala. Si no existe, no se
      * ha modificado el objeto.
      *
      * @see

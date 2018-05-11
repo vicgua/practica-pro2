@@ -22,7 +22,7 @@ void Almacen::leer_estructura(istream &is, BinTree<int> &tree) {
 }
 
 //-----------------
-// Métodos públicos
+// Métodos privados
 //-----------------
 
 Sala &Almacen::sala(IdSala id_sala) {
@@ -31,7 +31,20 @@ Sala &Almacen::sala(IdSala id_sala) {
 }
 
 const Sala &Almacen::sala(IdSala id_sala) const {
+    assert(0 < id_sala and id_sala <= salas.size());
     return salas[id_sala - 1];
+}
+
+int Almacen::i_distribuir(const BinTree<IdSala> &tree, IdProducto id_producto,
+                          int cantidad) {
+    if (tree.empty()) return cantidad;
+    int sobran = sala(tree.value()).poner_items(id_producto, cantidad);
+    if (sobran == 0) return 0;
+    int cantidad_left = sobran / 2;
+    int cantidad_right = sobran - cantidad_left;
+    int sobran_left = i_distribuir(tree.left(), id_producto, cantidad_left);
+    int sobran_right = i_distribuir(tree.right(), id_producto, cantidad_right);
+    return sobran_left + sobran_right;
 }
 
 //--------------
@@ -61,10 +74,8 @@ bool Almacen::quitar_prod(IdProducto id_producto) {
 }
 
 int Almacen::distribuir(IdProducto id_producto, int cantidad) {
-    /// @todo Implementar Almacen::distribuir
-    (void) id_producto;
-    (void) cantidad;
-    return -1;
+    if (productos.count(id_producto) == 0) return -1; // El producto no existe
+    return i_distribuir(estructura_salas, id_producto, cantidad);
 }
 
 //------------
