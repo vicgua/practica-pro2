@@ -1,12 +1,14 @@
 #include "Sala.hh"
+#ifndef NO_DIAGRAM
+#    include <algorithm>
+#endif
 
 //-----------------
 // Métodos privados
 //-----------------
 
-int Sala::columnas() const {
-    if (filas == 0) return 0;
-    return estanteria[0].size();
+int offset_pos(int i, int j) {
+    return i * columnas + j;
 }
 
 //--------------
@@ -18,72 +20,55 @@ Sala::Sala() {}
 Sala::Sala(int filas, int columnas) {
     this->filas = filas;
     this->columnas = columnas;
-    estanteria = Estanteria(filas, vector<IdProducto>(columnas, ""));
+    estanteria = Estanteria(filas * columnas, "");
 }
 
 //-----------------
 // Métodos públicos
 //-----------------
 int Sala::poner_items(IdProducto producto, int cantidad) {
-    for (int i = 0; i < filas and cantidad > 0; ++i) {
-        for (int j = 0; j < columnas and cantidad > 0; ++j) {
-            if (estanteria[i][j].empty()) {
-                estanteria[i][j] = producto;
-                --cantidad;
-                ++elementos;
-            }
+    int anadidos = 0;
+    for (int i = 0; cantidad > 0 and i < estanteria.size(); ++i) {
+        if (estanteria[i].empty()) {
+            estanteria[i] = producto;
+            --cantidad;
+            ++anadidos;
+            ++elementos;
         }
     }
+    inventario[producto] += anadidos;
     return cantidad;
 }
 
 int Sala::quitar_items(IdProducto producto, int cantidad) {
-    for (int i = 0; i < filas and cantidad > 0; ++i) {
-        for (int j = 0; j < columnas and cantidad > 0; ++j) {
-            if (estanteria[i][j] == producto) {
-                estanteria[i][j] = "";
-                --cantidad;
-                --elementos;
-            }
+    int quitados = 0;
+    for (int i = 0; cantidad > 0 and i < estanteria.size(); ++i) {
+        if (estanteria[i] == producto) {
+            estanteria[i] = "";
+            --cantidad;
+            ++quitados;
+            --elementos;
         }
+    }
+    Inventario::iterator it = inventario.find(producto);
+    it->second -= quitados;
+    if (it->second == 0) {
+        inventario.erase(it); // Elimina las entradas sin productos
     }
     return cantidad;
 }
 
 void Sala::compactar() {
-    int i_done = 0, j_done = 0;
-    int i_op = 0, j_op = 0;
-    while (i_op < filas) {
-        while (j_op < columnas) {
-            if (estanteria[i_op][j_op].empty()) {
-                // ++O
-            } else {
-                // ++D
-                // ++O
-            }
-            if (not estanteria[i_op][j_op].empty()) {
-                estanteria[i_done][j_done] = estanteria[i_op][j_op];
-                ++j_done;
-                if (j_done == columnas) {
-                    j_done = 0;
-                    ++i_done;
-                }
-            }
-            ++j_op;
+    int i_done = 0;
+    int i_op = 0;
+    while (i_op < vector.size()) {
+        if (not estanteria[i_op].empty()) {
+            estanteria[i_done] = estanteria[i_op];
+            ++i_done;
         }
-        j_op = 0;
         ++i_op;
     }
-    while (i_done < filas) {
-        while (j_done < columnas) {
-            estanteria[i_done][j_done] = "";
-            ++j_done;
-        }
-        j_done = 0;
-        ++i_done;
-    }
 }
-
 
 
 //------------
@@ -91,7 +76,7 @@ void Sala::compactar() {
 //------------
 
 IdProducto Sala::consultar_pos(int f, int c) const {
-    IdProducto p = estanteria[f-1][c-1];
+    IdProducto p = estanteria[offset_pos(f - 1, c - 1)];
     if (p.empty())
         return "NULL";
     return p;

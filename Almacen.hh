@@ -14,9 +14,6 @@
 
 using namespace std;
 
-/// Inventario, representado como un map [Producto -> cantidad]
-typedef map<IdProducto, int> Inventario;
-
 /** Representación de un almacén. */
 class Almacen {
 private:
