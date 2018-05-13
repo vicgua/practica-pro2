@@ -44,7 +44,9 @@ int Sala::poner_items(IdProducto producto, int cantidad) {
             ++elementos;
         }
     }
-    inventario[producto] += anadidos;
+    if (anadidos > 0) {
+        inventario[producto] += anadidos;
+    }
     return cantidad;
 }
 
