@@ -1,0 +1,45 @@
+escribir 1
+  NULL
+  0
+escribir 2
+  NULL NULL
+  0
+escribir 3
+  NULL
+  0
+poner_prod ABCD
+poner_prod WXYZ
+distribuir ABCD 3
+  0
+distribuir WXYZ 1
+  1
+escribir 1
+  ABCD
+  1
+  ABCD 1
+escribir 2
+  ABCD NULL
+  1
+  ABCD 1
+escribir 3
+  ABCD
+  1
+  ABCD 1
+distribuir WXYZ 2
+  1
+escribir 1
+  ABCD
+  1
+  ABCD 1
+escribir 2
+  ABCD WXYZ
+  2
+  ABCD 1
+  WXYZ 1
+escribir 3
+  ABCD
+  1
+  ABCD 1
+inventario
+  ABCD 3
+  WXYZ 1

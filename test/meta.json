@@ -1,0 +1,24 @@
+{
+    "estructura": {
+        "id": 1,
+        "filas": 1,
+        "columnas": 1,
+        "conectado a": [
+            {
+                "id": 2,
+                "filas": 1,
+                "columnas": 2
+            },
+            {
+                "id": 3,
+                "filas": 1,
+                "columnas": 1
+            }
+        ]
+    },
+    "tests": [
+        "distribuir.txt",
+        "redimensionar.txt",
+        "compactar.txt"
+    ]
+}

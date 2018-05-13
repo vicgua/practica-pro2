@@ -3,6 +3,7 @@
 1 1
 1 2
 1 1
+
 escribir 1
 escribir 2
 escribir 3
@@ -62,4 +63,5 @@ quitar_items 2 WXYZ 3
 redimensionar 2 1 1
 escribir 2
 inventario
+
 fin
