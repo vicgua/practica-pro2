@@ -40,8 +40,8 @@ int Almacen::i_distribuir(const BinTree<IdSala> &tree, IdProducto id_producto,
     if (tree.empty()) return cantidad;
     int sobran = sala(tree.value()).poner_items(id_producto, cantidad);
     if (sobran == 0) return 0;
-    int cantidad_left = sobran / 2;
-    int cantidad_right = sobran - cantidad_left;
+    int cantidad_right = sobran / 2;
+    int cantidad_left = sobran - cantidad_right;
     int sobran_left = i_distribuir(tree.left(), id_producto, cantidad_left);
     int sobran_right = i_distribuir(tree.right(), id_producto, cantidad_right);
     return sobran_left + sobran_right;

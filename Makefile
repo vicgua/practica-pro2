@@ -10,6 +10,9 @@ Sala.o: Sala.cc Sala.hh aux.hh
 practica.tar: Makefile program.cc Almacen.cc Almacen.hh Sala.cc Sala.hh aux.hh
 	tar -cvf $@ $^
 
+.PHONY: dist
+dist: practica.tar
+
 .PHONY: clean
 clean:
 	rm -rf docs
