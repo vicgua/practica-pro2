@@ -74,8 +74,8 @@ def procesar_meta(meta, base, inp, cor):
         test_file = base / testname
         with test_file.open('r') as test_obj:
             procesar_test(inp, cor, test_obj)
-    inp.write('fin')
-    cor.write('fin')
+    inp.write('fin\n')
+    cor.write('fin\n')
 
 parser = argparse.ArgumentParser(
     description='Preprocesador de tests para TreeKEA'

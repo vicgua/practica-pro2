@@ -24,6 +24,5 @@ latex: docs
 	$(MAKE) -C docs/latex
 
 .PHONY: test
-test: program.exe sample.inp sample.cor sample1.inp sample1.cor
-	./program.exe < sample.inp | diff - sample.cor
-	./program.exe < sample1.inp | diff - sample1.cor
+test: program.exe
+	$(MAKE) -f test.mk
