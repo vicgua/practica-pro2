@@ -12,7 +12,8 @@ practica.tar: Makefile program.cc Almacen.cc Almacen.hh Sala.cc Sala.hh aux.hh
 
 .PHONY: clean
 clean:
-	@rm -rvf main.o Almacen.o Sala.o program.o program.exe practica.tar
+	rm -rf docs
+	rm -vf main.o Almacen.o Sala.o program.o program.exe practica.tar
 
 .PHONY: docs
 docs:
@@ -23,5 +24,6 @@ latex: docs
 	$(MAKE) -C docs/latex
 
 .PHONY: test
-test: program.exe sample.inp sample.cor
+test: program.exe sample.inp sample.cor sample1.inp sample1.cor
 	./program.exe < sample.inp | diff - sample.cor
+	./program.exe < sample1.inp | diff - sample1.cor
