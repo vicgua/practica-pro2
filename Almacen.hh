@@ -114,9 +114,9 @@ public:
      * 2. Si no hay suficiente espacio, los n restantes se distribuyen
      *      entre el resto de salas:
      *      - Si hay dos salas a continuación,
-     *          @f$\left \lfloor{n / 2} \right \rfloor@f$ se distribuyen a la
+     *          @f$\left \lceil{n / 2} \right \rceil@f$ se distribuyen a la
      *          sala derecha, y los
-     *          @f$\left \lceil{n / 2} \right \rceil@f$ restantes, a la
+     *          @f$\left \lfloor{n / 2} \right \rfloor@f$ restantes, a la
      *          izquierda. Ir a 1.
      *      - Si hay una sola sala, se distribuyen a ésta.
      *      - Si no hay ninguna sala a continuación, no se pueden almacenar.
