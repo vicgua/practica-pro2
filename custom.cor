@@ -59,8 +59,6 @@ escribir 2
   WXYZ NULL NULL NULL NULL
   1
   WXYZ 1
-poner_items 2 PADD 1
-  error
 poner_prod PADD
 poner_items 2 PADD 1
   0
@@ -78,8 +76,6 @@ escribir 2
   ABCD 2
   PADD 1
   WXYZ 2
-quitar_prod PADD
-  error
 quitar_items 2 PADD 10
   9
 escribir 2

@@ -19,6 +19,6 @@
     "tests": [
         "distribuir.txt",
         "redimensionar.txt",
-        "compactar.txt"
+        "compactar_redim_dist.txt"
     ]
 }

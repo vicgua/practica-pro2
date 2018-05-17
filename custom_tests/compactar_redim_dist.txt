@@ -1,7 +1,5 @@
 ; Pruebas varias, especialmente para compactar
 
-poner_items 2 PADD 1
-  error; Falla porque PADD no existe
 poner_prod PADD; (Padding)
 poner_items 2 PADD 1
   0
@@ -19,8 +17,6 @@ escribir 2
   ABCD 2
   PADD 1
   WXYZ 2
-quitar_prod PADD
-  error
 quitar_items 2 PADD 10
   9
 escribir 2

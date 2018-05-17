@@ -25,13 +25,11 @@ escribir 2
 redimensionar 2 5 5
 escribir 2
 
-poner_items 2 PADD 1
 poner_prod PADD
 poner_items 2 PADD 1
 poner_items 2 WXYZ 1
 poner_items 2 ABCD 2
 escribir 2
-quitar_prod PADD
 quitar_items 2 PADD 10
 escribir 2
 compactar 2
