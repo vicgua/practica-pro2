@@ -1,5 +1,6 @@
 ; Pruebas varias, especialmente para compactar
 
+; (Preparació pel test següent)
 poner_prod PADD; (Padding)
 poner_items 2 PADD 1
   0
@@ -19,6 +20,7 @@ escribir 2
   WXYZ 2
 quitar_items 2 PADD 10
   9
+; Compactar amb un buit entre dos productes
 escribir 2
   NULL NULL NULL NULL NULL
   NULL NULL NULL NULL NULL
@@ -40,6 +42,7 @@ escribir 2
   WXYZ 2
 quitar_items 2 WXYZ 1
   0
+; Compactar amb un buit abans dels productes
 escribir 2
   NULL NULL NULL NULL NULL
   NULL NULL NULL NULL NULL
@@ -59,65 +62,5 @@ escribir 2
   3
   ABCD 2
   WXYZ 1
-quitar_items 2 WXYZ 1
-  0
-redimensionar 2 1 1
-  error
-redimensionar 2 5 2
-escribir 2
-  NULL NULL
-  NULL NULL
-  NULL NULL
-  NULL NULL
-  ABCD ABCD
-  2
-  ABCD 2
-redimensionar 2 2 5
-escribir 2
-  NULL NULL NULL NULL NULL
-  ABCD ABCD NULL NULL NULL
-  2
-  ABCD 2
-quitar_items 2 ABCD 1
-  0
-poner_prod PADD
-  error
-poner_items 2 WXYZ 3
-  0
-poner_items 2 PADD 1
-  0
-poner_items 2 ABCD 1
-  0
-quitar_items 2 PADD 1
-  0
-quitar_prod PADD
-escribir 2
-  ABCD NULL NULL NULL NULL
-  WXYZ ABCD WXYZ WXYZ NULL
-  5
-  ABCD 2
-  WXYZ 3
-reorganizar 2
-escribir 2
-  NULL NULL NULL NULL NULL
-  ABCD ABCD WXYZ WXYZ WXYZ
-  5
-  ABCD 2
-  WXYZ 3
-quitar_items 2 ABCD 2
-  0
-reorganizar 2
-escribir 2
-  NULL NULL NULL NULL NULL
-  WXYZ WXYZ WXYZ NULL NULL
-  3
-  WXYZ 3
-quitar_items 2 WXYZ 3
-  0
-redimensionar 2 1 1
-escribir 2
-  NULL
-  0
-inventario
-  ABCD 2
-  WXYZ 0
+; Si está buit
+; Utilitzant més d'una fila

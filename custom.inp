@@ -14,16 +14,22 @@ distribuir WXYZ 1
 escribir 1
 escribir 2
 escribir 3
+quitar_items 3 ABCD 1
+distribuir ABCD 1
+poner_items 3 ABCD 1
 distribuir WXYZ 2
 escribir 1
 escribir 2
 escribir 3
-inventario
 
 quitar_items 2 ABCD 1
 escribir 2
 redimensionar 2 5 5
 escribir 2
+poner_items 2 WXYZ 1
+redimensionar 2 1 1
+quitar_items 2 WXYZ 1
+compactar 2
 
 poner_prod PADD
 poner_items 2 PADD 1
@@ -45,7 +51,20 @@ escribir 2
 redimensionar 2 2 5
 escribir 2
 quitar_items 2 ABCD 1
-poner_prod PADD
+poner_items 2 WXYZ 3
+poner_items 2 PADD 1
+poner_items 2 ABCD 1
+quitar_items 2 PADD 1
+quitar_prod PADD
+escribir 2
+
+quitar_items 2 WXYZ 1
+redimensionar 2 1 1
+redimensionar 2 5 2
+escribir 2
+redimensionar 2 2 5
+escribir 2
+quitar_items 2 ABCD 1
 poner_items 2 WXYZ 3
 poner_items 2 PADD 1
 poner_items 2 ABCD 1
@@ -58,8 +77,5 @@ quitar_items 2 ABCD 2
 reorganizar 2
 escribir 2
 quitar_items 2 WXYZ 3
-redimensionar 2 1 1
-escribir 2
-inventario
 
 fin

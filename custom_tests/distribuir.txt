@@ -11,8 +11,7 @@ poner_prod ABCD
 poner_prod WXYZ
 distribuir ABCD 3
   0
-distribuir WXYZ 1; TODO: Probar cuando la rama izquierda está llena,
-;pero la derecha no
+distribuir WXYZ 1
   0
 escribir 1
   ABCD
@@ -27,6 +26,13 @@ escribir 3
   ABCD
   1
   ABCD 1
+quitar_items 3 ABCD 1
+  0
+distribuir ABCD 1; La rama izquierda está llena, así que aunque haya espacio
+; en la derecha, el producto se devuelve.
+  1
+poner_items 3 ABCD 1
+  0
 distribuir WXYZ 2
   2
 escribir 1
@@ -42,6 +48,5 @@ escribir 3
   ABCD
   1
   ABCD 1
-inventario
-  ABCD 3
-  WXYZ 1
+; Si se queda sin producto antes de llegar a las hojas
+; Si no cabe más producto

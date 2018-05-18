@@ -26,6 +26,12 @@ escribir 3
   ABCD
   1
   ABCD 1
+quitar_items 3 ABCD 1
+  0
+distribuir ABCD 1
+  1
+poner_items 3 ABCD 1
+  0
 distribuir WXYZ 2
   2
 escribir 1
@@ -41,9 +47,6 @@ escribir 3
   ABCD
   1
   ABCD 1
-inventario
-  ABCD 3
-  WXYZ 1
 quitar_items 2 ABCD 1
   0
 escribir 2
@@ -59,6 +62,13 @@ escribir 2
   WXYZ NULL NULL NULL NULL
   1
   WXYZ 1
+poner_items 2 WXYZ 1
+  0
+redimensionar 2 1 1
+  error
+quitar_items 2 WXYZ 1
+  0
+compactar 2
 poner_prod PADD
 poner_items 2 PADD 1
   0
@@ -139,8 +149,42 @@ escribir 2
   ABCD 2
 quitar_items 2 ABCD 1
   0
-poner_prod PADD
+poner_items 2 WXYZ 3
+  0
+poner_items 2 PADD 1
+  0
+poner_items 2 ABCD 1
+  0
+quitar_items 2 PADD 1
+  0
+quitar_prod PADD
+escribir 2
+  ABCD NULL NULL NULL NULL
+  WXYZ ABCD WXYZ WXYZ NULL
+  5
+  ABCD 2
+  WXYZ 3
+quitar_items 2 WXYZ 1
+  0
+redimensionar 2 1 1
   error
+redimensionar 2 5 2
+escribir 2
+  NULL NULL
+  NULL NULL
+  NULL NULL
+  NULL NULL
+  ABCD ABCD
+  2
+  ABCD 2
+redimensionar 2 2 5
+escribir 2
+  NULL NULL NULL NULL NULL
+  ABCD ABCD NULL NULL NULL
+  2
+  ABCD 2
+quitar_items 2 ABCD 1
+  0
 poner_items 2 WXYZ 3
   0
 poner_items 2 PADD 1
@@ -173,11 +217,4 @@ escribir 2
   WXYZ 3
 quitar_items 2 WXYZ 3
   0
-redimensionar 2 1 1
-escribir 2
-  NULL
-  0
-inventario
-  ABCD 2
-  WXYZ 0
 fin

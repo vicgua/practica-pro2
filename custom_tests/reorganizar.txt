@@ -1,0 +1,56 @@
+quitar_items 2 WXYZ 1
+  0
+redimensionar 2 1 1
+  error
+redimensionar 2 5 2
+escribir 2
+  NULL NULL
+  NULL NULL
+  NULL NULL
+  NULL NULL
+  ABCD ABCD
+  2
+  ABCD 2
+redimensionar 2 2 5
+escribir 2
+  NULL NULL NULL NULL NULL
+  ABCD ABCD NULL NULL NULL
+  2
+  ABCD 2
+quitar_items 2 ABCD 1
+  0
+poner_items 2 WXYZ 3
+  0
+poner_items 2 PADD 1
+  0
+poner_items 2 ABCD 1
+  0
+quitar_items 2 PADD 1
+  0
+quitar_prod PADD
+escribir 2
+  ABCD NULL NULL NULL NULL
+  WXYZ ABCD WXYZ WXYZ NULL
+  5
+  ABCD 2
+  WXYZ 3
+
+
+reorganizar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  ABCD ABCD WXYZ WXYZ WXYZ
+  5
+  ABCD 2
+  WXYZ 3
+quitar_items 2 ABCD 2
+  0
+reorganizar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  WXYZ WXYZ WXYZ NULL NULL
+  3
+  WXYZ 3
+quitar_items 2 WXYZ 3
+  0
+ 
