@@ -29,3 +29,7 @@ latex: docs
 .PHONY: test
 test: program.exe
 	$(MAKE) -f test.mk
+
+.PHONY: test-clean
+test-clean:
+	$(MAKE) -f test.mk clean

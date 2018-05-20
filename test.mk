@@ -1,6 +1,5 @@
 # Makefile for tests
 .PHONY: all public-tests custom-tests
-
 all: public-tests custom-tests
 
 public-tests: program.exe sample.inp sample.cor
@@ -11,3 +10,7 @@ custom-tests: program.exe custom.inp custom.cor
 
 custom.inp custom.cor: testpp.py custom_tests/*
 	./testpp.py -o custom custom_tests
+
+.PHONY: clean
+clean:
+	rm -vf custom.inp custom.cor
