@@ -10,9 +10,7 @@
 //-----------------
 
 bool Sala::comp_IdProducto(const IdProducto &a, const IdProducto &b) {
-    if (a.empty()) return false;
-    if (b.empty()) return true;
-    return a < b;
+    return (not a.empty()) and (b.empty() or (a < b));
 }
 
 //--------------
