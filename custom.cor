@@ -66,6 +66,29 @@ poner_items 2 WXYZ 1
   0
 redimensionar 2 1 1
   error
+redimensionar 2 5 1
+escribir 2
+  NULL
+  NULL
+  NULL
+  WXYZ
+  WXYZ
+  2
+  WXYZ 2
+redimensionar 2 1 5
+escribir 2
+  WXYZ WXYZ NULL NULL NULL
+  2
+  WXYZ 2
+redimensionar 2 5 5
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  WXYZ WXYZ NULL NULL NULL
+  2
+  WXYZ 2
 quitar_items 2 WXYZ 1
   0
 compactar 2
@@ -128,7 +151,51 @@ escribir 2
   3
   ABCD 2
   WXYZ 1
-quitar_items 2 WXYZ 1
+quitar_items 2 ABCD 2
+  0
+quitar_items 2 WXYZ 2
+  1
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  0
+compactar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  0
+poner_items 2 WXYZ 4
+  0
+poner_items 2 ABCD 4
+  0
+quitar_items 2 ABCD 2
+  0
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL ABCD ABCD NULL NULL
+  WXYZ WXYZ WXYZ WXYZ NULL
+  6
+  ABCD 2
+  WXYZ 4
+compactar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  ABCD NULL NULL NULL NULL
+  WXYZ WXYZ WXYZ WXYZ ABCD
+  6
+  ABCD 2
+  WXYZ 4
+quitar_items 2 WXYZ 4
   0
 redimensionar 2 1 1
   error

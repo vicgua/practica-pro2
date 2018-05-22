@@ -1,3 +1,6 @@
+/** @file
+ * Implementación de Almacen.
+ */
 #include "Almacen.hh"
 #ifndef NO_DIAGRAM
 #    include <list>

@@ -1,3 +1,6 @@
+/** @file
+ * Implementación de Sala.
+ */
 #include "Sala.hh"
 #ifndef NO_DIAGRAM
 #    include <algorithm> // std::sort

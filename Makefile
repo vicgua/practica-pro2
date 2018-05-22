@@ -7,6 +7,9 @@ program.o: program.cc Almacen.hh Sala.hh aux.hh BinTree.hh
 Almacen.o: Almacen.cc Almacen.hh Sala.hh aux.hh BinTree.hh
 Sala.o: Sala.cc Sala.hh aux.hh
 
+.PHONY: all
+all: program.exe practica.tar
+
 practica.tar: Makefile program.cc Almacen.cc Almacen.hh Sala.cc Sala.hh aux.hh
 	tar -cvf $@ $^
 

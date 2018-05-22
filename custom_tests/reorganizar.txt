@@ -1,4 +1,4 @@
-quitar_items 2 WXYZ 1
+quitar_items 2 WXYZ 4
   0
 redimensionar 2 1 1
   error

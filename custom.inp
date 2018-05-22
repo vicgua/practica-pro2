@@ -28,6 +28,12 @@ redimensionar 2 5 5
 escribir 2
 poner_items 2 WXYZ 1
 redimensionar 2 1 1
+redimensionar 2 5 1
+escribir 2
+redimensionar 2 1 5
+escribir 2
+redimensionar 2 5 5
+escribir 2
 quitar_items 2 WXYZ 1
 compactar 2
 
@@ -44,8 +50,19 @@ quitar_items 2 WXYZ 1
 escribir 2
 compactar 2
 escribir 2
+quitar_items 2 ABCD 2
+quitar_items 2 WXYZ 2
+escribir 2
+compactar 2
+escribir 2
+poner_items 2 WXYZ 4
+poner_items 2 ABCD 4
+quitar_items 2 ABCD 2
+escribir 2
+compactar 2
+escribir 2
 
-quitar_items 2 WXYZ 1
+quitar_items 2 WXYZ 4
 redimensionar 2 1 1
 redimensionar 2 5 2
 escribir 2
