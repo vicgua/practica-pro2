@@ -41,4 +41,4 @@ escribir 2
 distribuir ABCD 20
   20
 inventario
-    ABCD 12
+  ABCD 12
