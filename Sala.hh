@@ -22,6 +22,9 @@ typedef int IdSala;
  * Este vector puede ser representado como una matriz, donde la posición @f$ (i,
  * j) @f$ está en la posición @f$ i \cdot N + j @f$ donde @f$ N @f$ es el número
  * de columnas.
+ *
+ * Se ha escogido este formato ya que simplifica la operación reorganizar() y,
+ * en menor medida, redimensionar() y compactar().
  */
 typedef vector<IdProducto> Estanteria;
 
@@ -32,16 +35,61 @@ typedef vector<IdProducto> Estanteria;
  */
 class Sala {
 private:
+    /** Estantería de la sala, representada como se especifica en @ref
+     * Estanteria.
+     *
+     * @invariant
+     * @c "estanteria.size() == " @ref filas * @ref columnas
+     */
     Estanteria estanteria;
-    Inventario inventario;
-    int elementos;
-    int filas, columnas;
 
+    /** Inventario de la sala.
+     *
+     * Aunque no es estrictamente necesario, el uso de un inventario hace que la
+     * operación escribir() vaya notablemente más rápido.
+     *
+     * @invariant
+     * @ref inventario cuenta los ítems actuales de @ref estanteria según el
+     * producto. Un producto está en @ref inventario si y sólo si hay al menos
+     * una unidad en @ref estanteria.
+     */
+    Inventario inventario;
+
+    /** Números de elementos en la estantería de la sala.
+     * Al igual que @ref inventario, no es necesario, pero agiliza algunas
+     * operaciones, especialmente en casos extremos.
+     *
+     * @invariant
+     * Los siguientes son iguales:
+     * - El número de ítems no nulos de @ref estanteria.
+     * - La suma de los valores de @ref inventario.
+     * - El valor de @ref elementos.
+     */
+    int elementos;
+
+    /** Filas de la estantería de la sala.
+     *
+     * @invariant
+     * filas == estanteria.size() / @ref columnas
+     */
+    int filas;
+    /// Columnas de la estantería de la sala.
+    int columnas;
+
+    /** Comparar dos productos, considerando los productos nulos como mayores al
+     * resto de productos.
+     *
+     * Esta función se puede usar como el tercer argumento de std::sort().
+     *
+     * @param[in] a, b
+     * Identificadores de producto a comparar.
+     */
     static bool comp_IdProducto(const IdProducto &a, const IdProducto &b);
 
 public:
     /// Crea una sala vacía.
     Sala();
+
     /** Crea una sala con un determinado número de filas y columnas.
      *
      * @param filas
