@@ -1,6 +1,6 @@
-; Pruebas varias, especialmente para compactar
+; Pruebas para compactar
 
-; (Preparació pel test següent)
+; (Preparación para el test siguiente)
 poner_prod PADD; (Padding)
 poner_items 2 PADD 1
   0
@@ -20,7 +20,7 @@ escribir 2
   WXYZ 2
 quitar_items 2 PADD 10
   9
-; Compactar amb un buit entre dos productes
+; Compactar con un vacío entre dos productos
 escribir 2
   NULL NULL NULL NULL NULL
   NULL NULL NULL NULL NULL
@@ -42,7 +42,7 @@ escribir 2
   WXYZ 2
 quitar_items 2 WXYZ 1
   0
-; Compactar amb un buit abans dels productes
+; Compactar con un vacío antes de los productos
 escribir 2
   NULL NULL NULL NULL NULL
   NULL NULL NULL NULL NULL

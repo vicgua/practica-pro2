@@ -82,4 +82,19 @@ reorganizar 2
 escribir 2
 quitar_items 2 WXYZ 3
 
+escribir 1
+escribir 2
+escribir 3
+quitar_items 1 ABCD 1
+escribir 1
+distribuir ABCD 1
+escribir 1
+inventario
+quitar_prod WXYZ
+inventario
+poner_items 2 ABCD 10
+escribir 2
+distribuir ABCD 20
+inventario
+
 fin

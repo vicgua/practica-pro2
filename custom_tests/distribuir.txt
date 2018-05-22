@@ -48,5 +48,3 @@ escribir 3
   ABCD
   1
   ABCD 1
-; Si se queda sin producto antes de llegar a las hojas
-; Si no cabe más producto
