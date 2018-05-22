@@ -17,14 +17,37 @@ using namespace std;
 /** Representación de un almacén. */
 class Almacen {
 private:
-    /** Cómo estan organizadas las salas en el almacén.
-     * Cada nodo es el identificador de una sala.
+    /** Árbol con la estructura de las salas.
+     *
+     * Cada nodo contiene el identificador de la sala, y conectado a este, las
+     * tres salas a las que se puede acceder (o una, si es una hoja).
      */
     BinTree<IdSala> estructura_salas;
+    /// Vector que contiene todas las salas, con la sala n en salas[n-1].
     vector<Sala> salas;
+    /** Inventario de todos los productos en el almacén.
+     *
+     * Un producto puede tener 0 ítems cuando ha sido dado de alta, pero no
+     * tiene ningún ítem en ninguna sala.
+     */
     Inventario productos;
 
-    static void leer_estructura(istream &is, BinTree<int> &tree);
+    /** Leer la estructura del árbol de salas en preorden.
+     *
+     * @param is
+     * Stream desde el que se leerá el árbol.
+     *
+     * @param[out] tree
+     * Árbol de identificadores de salas.
+     *
+     * @pre
+     * Hay un árbol válido en @c is.
+     *
+     * @post
+     * Se han leído elementos de @c is hasta formar un árbol (en preorden, con 0
+     * indicando el árbol nulo), que se encuentra en @c tree.
+     */
+    static void leer_estructura(istream &is, BinTree<IdSala> &tree);
 
     /** Obtener una sala.
      *
@@ -38,8 +61,8 @@ private:
      * 1 <= @c id_sala <= número de salas
      */
     Sala &sala(IdSala id_sala);
-    /** Igual que sala(IdSala) pero devuelve una referencia constante,
-     * para métodos constantes. */
+
+    /** Igual que sala(IdSala) pero devuelve una referencia constante. */
     const Sala &sala(IdSala id_sala) const;
 
     /** Función de inmersión de distribuir().
