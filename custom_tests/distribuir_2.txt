@@ -1,0 +1,44 @@
+; Más pruebas para distribuir. Estas dependen en el estado dejado por las pruebas anteriores.
+
+escribir 1
+  ABCD
+  1
+  ABCD 1
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  0
+escribir 3
+  ABCD
+  1
+  ABCD 1
+quitar_items 1 ABCD 1
+  0
+escribir 1
+  NULL
+  0
+; Si se queda sin producto antes de llegar a las hojas
+distribuir ABCD 1
+  0
+escribir 1
+  ABCD
+  1
+  ABCD 1
+inventario
+  ABCD 2
+  WXYZ 0
+quitar_prod WXYZ; Este producto ya no existe
+inventario
+  ABCD 2
+; Si no cabe más producto
+poner_items 2 ABCD 10
+  0
+escribir 2
+  ABCD ABCD ABCD ABCD ABCD
+  ABCD ABCD ABCD ABCD ABCD
+  10
+  ABCD 10
+distribuir ABCD 20
+  20
+inventario
+    ABCD 12
