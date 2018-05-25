@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 # TEST PREPROCESSOR
 # Crea un archivo de tests y su solución esperada a partir de un directorio
 # de tests. El formato de entrada admite comentarios, un sólo archivo para
