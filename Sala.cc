@@ -72,18 +72,18 @@ int Sala::quitar_items(IdProducto producto, int cantidad) {
 }
 
 void Sala::compactar() {
-    int i_done = 0;
-    int i_op = 0;
-    while (i_op < estanteria.size()) {
-        if (not estanteria[i_op].empty()) {
-            estanteria[i_done] = estanteria[i_op];
-            ++i_done;
+    Estanteria::iterator it_done = estanteria.begin();
+    Estanteria::iterator it_op = estanteria.begin();
+    while (it_op != estanteria.end()) {
+        if (not it_op->empty()) {
+            *it_done = *it_op;
+            ++it_done;
         }
-        ++i_op;
+        ++it_op;
     }
-    while (i_done < estanteria.size()) {
-        estanteria[i_done] = "";
-        ++i_done;
+    while (it_done != estanteria.end()) {
+        *it_done = "";
+        ++it_done;
     }
 }
 
