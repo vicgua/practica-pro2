@@ -8,17 +8,17 @@
 #    include <utility> // std::move
 #endif
 
-//-----------------
-// Statics privados
-//-----------------
+/*------------------+
+ | Statics privados |
+ +------------------*/
 
 bool Sala::comp_IdProducto(const IdProducto &a, const IdProducto &b) {
     return (not a.empty()) and (b.empty() or (a < b));
 }
 
-//-----------------
-// Métodos privados
-//-----------------
+/*------------------+
+ | Métodos privados |
+ +------------------*/
 
 void Sala::copia_compactada(Estanteria &dest) const {
     assert(dest.size() >= elementos);
@@ -41,9 +41,9 @@ void Sala::copia_compactada(Estanteria &dest) const {
     }
 }
 
-//--------------
-// Constructores
-//--------------
+/*---------------+
+ | Constructores |
+ +---------------*/
 
 Sala::Sala() {}
 
@@ -55,9 +55,9 @@ Sala::Sala(int filas, int columnas) {
     estanteria = Estanteria(filas * columnas, "");
 }
 
-//-----------------
-// Métodos públicos
-//-----------------
+/*------------------+
+ | Métodos públicos |
+ +------------------*/
 int Sala::poner_items(IdProducto producto, int cantidad) {
     if (elementos == filas * columnas)
         return cantidad; // No cabe ningún ítem en esta sala
@@ -141,9 +141,9 @@ bool Sala::redimensionar(int filas, int columnas) {
     return true;
 }
 
-//------------
-// Consultores
-//------------
+/*-------------+
+ | Consultores |
+ +-------------*/
 
 IdProducto Sala::consultar_pos(int f, int c) const {
     assert(0 < f and f <= filas);
@@ -155,9 +155,9 @@ IdProducto Sala::consultar_pos(int f, int c) const {
     return p;
 }
 
-//----
-// I/O
-//----
+/*-----+
+ | I/O |
+ +-----*/
 
 void Sala::escribir(ostream &os) const {
     for (int i = filas - 1; i >= 0; --i) {

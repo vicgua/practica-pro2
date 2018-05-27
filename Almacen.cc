@@ -6,9 +6,9 @@
 #    include <list>
 #endif
 
-//-----------------
-// Statics privados
-//-----------------
+/*------------------+
+ | Statics privados |
+ +------------------*/
 
 void Almacen::leer_estructura(istream &is, BinTree<int> &tree) {
     int n;
@@ -24,9 +24,9 @@ void Almacen::leer_estructura(istream &is, BinTree<int> &tree) {
     tree = BinTree<int>(n, left, right);
 }
 
-//-----------------
-// Métodos privados
-//-----------------
+/*------------------+
+ | Métodos privados |
+ +------------------*/
 
 Sala &Almacen::sala(IdSala id_sala) {
     assert(0 < id_sala and id_sala <= salas.size());
@@ -40,7 +40,7 @@ const Sala &Almacen::sala(IdSala id_sala) const {
 
 int Almacen::i_distribuir(const BinTree<IdSala> &tree, IdProducto id_producto,
                           int cantidad) {
-    if (tree.empty()) return cantidad;
+    if (tree.empty()) return cantidad; // Caso base
     int sobran = sala(tree.value()).poner_items(id_producto, cantidad);
     if (sobran == 0) return 0;
     int cantidad_right = sobran / 2;
@@ -50,15 +50,15 @@ int Almacen::i_distribuir(const BinTree<IdSala> &tree, IdProducto id_producto,
     return sobran_left + sobran_right;
 }
 
-//--------------
-// Constructores
-//--------------
+/*---------------+
+ | Constructores |
+ +---------------*/
 
 Almacen::Almacen() {} // Constructor por defecto
 
-//-----------------
-// Métodos públicos
-//-----------------
+/*------------------+
+ | Métodos públicos |
+ +------------------*/
 
 bool Almacen::poner_prod(IdProducto id_producto) {
     return productos.insert({id_producto, 0}).second;
@@ -84,9 +84,9 @@ int Almacen::distribuir(IdProducto id_producto, int cantidad) {
     return sobran;
 }
 
-//------------
-// Consultores
-//------------
+/*-------------+
+ | Consultores |
+ +-------------*/
 
 int Almacen::num_salas() const {
     return this->salas.size();
@@ -99,9 +99,9 @@ int Almacen::consultar_prod(IdProducto id_producto) const {
     return it->second;
 }
 
-//----
-// I/O
-//----
+/*-----+
+ | I/O |
+ +-----*/
 
 void Almacen::inventario(ostream &os) const {
     Inventario::const_iterator it;
@@ -125,9 +125,9 @@ void Almacen::escribir(IdSala id_sala, ostream &os) const {
     sala(id_sala).escribir(os);
 }
 
-//--------------------
-// Operaciones de sala
-//--------------------
+/*---------------------+
+ | Operaciones de sala |
+ +---------------------*/
 
 int Almacen::poner_items(IdSala id_sala, IdProducto id_producto, int cantidad) {
     Inventario::iterator it = productos.find(id_producto);
