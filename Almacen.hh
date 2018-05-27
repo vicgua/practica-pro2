@@ -62,7 +62,7 @@ private:
      */
     Sala &sala(IdSala id_sala);
 
-    /** Igual que sala(IdSala) pero devuelve una referencia constante. */
+    /** Igual que sala(IdSala), pero devuelve una referencia constante. */
     const Sala &sala(IdSala id_sala) const;
 
     /** Función de inmersión de distribuir().
@@ -202,22 +202,19 @@ public:
 
     /** Lee las salas por un stream.
      *
-     * @param num_salas
-     * Número de salas.
-     *
      * @param is
      * Stream para leer.
      *
      * @pre
-     * @c is contiene un árbol en preorden y @c num_salas dimensiones (&rArr; @c
-     * is no está vacío); el árbol en @c is tiene
-     * @c num_salas nodos (sin contar los nulos), numerados de 1 a @c num_salas.
+     * @c is contiene el número de salas (@em n), un árbol en preorden y las
+     * dimensiones de las salas (&rArr; @c is no está vacío); el árbol en @c is
+     * tiene @em n nodos, numerados de 1 a @em n.
      *
      * @post
-     * El objeto ahora tiene @c num_salas salas con la estructura y dimensiones
+     * El objeto ahora tiene @em n salas con la estructura y dimensiones
      * dadas en @c is.
      */
-    void leer(int num_salas, istream &is);
+    void leer(istream &is);
 
     //--------------------
     // Operaciones de sala

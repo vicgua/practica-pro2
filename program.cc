@@ -18,12 +18,9 @@ using namespace std;
  * implementadas en las clases Almacen y Sala.
  */
 int main() {
-    int n;
-    cin >> n;
-
     // Crear almacén
     Almacen almacen;
-    almacen.leer(n, cin);
+    almacen.leer(cin);
 
     // Procesar instrucciones
     string inst;

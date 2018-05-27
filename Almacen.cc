@@ -110,10 +110,13 @@ void Almacen::inventario(ostream &os) const {
     }
 }
 
-void Almacen::leer(int num_salas, istream &is) {
+void Almacen::leer(istream &is) {
+    int num_salas;
+    is >> num_salas;
+
     leer_estructura(is, estructura_salas);
+
     salas = vector<Sala>(num_salas);
-    // Leer el tamaño de las estanterías
     for (int i = 0; i < num_salas; ++i) {
         int filas, columnas;
         is >> filas >> columnas;
