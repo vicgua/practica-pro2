@@ -47,4 +47,5 @@ escribir 2
   WXYZ 2
 quitar_items 2 WXYZ 1
   0
-compactar 2
+; Sin cambiar el tamaño
+redimensionar 2 5 5

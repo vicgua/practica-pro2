@@ -91,7 +91,7 @@ escribir 2
   WXYZ 2
 quitar_items 2 WXYZ 1
   0
-compactar 2
+redimensionar 2 5 5
 poner_prod PADD
 poner_items 2 PADD 1
   0
@@ -153,14 +153,18 @@ escribir 2
   WXYZ 1
 quitar_items 2 ABCD 2
   0
-quitar_items 2 WXYZ 2
+poner_items 2 WXYZ 25
   1
+compactar 2
 escribir 2
-  NULL NULL NULL NULL NULL
-  NULL NULL NULL NULL NULL
-  NULL NULL NULL NULL NULL
-  NULL NULL NULL NULL NULL
-  NULL NULL NULL NULL NULL
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  25
+  WXYZ 25
+quitar_items 2 WXYZ 25
   0
 compactar 2
 escribir 2
