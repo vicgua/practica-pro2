@@ -101,12 +101,7 @@ int main() {
 
         } else if (inst == "inventario") {
             cout << inst << endl;
-            const Inventario &inventario = almacen.inventario();
-            Inventario::const_iterator it;
-            for (it = inventario.begin(); it != inventario.end(); ++it) {
-                cout << "  " << it->first << " " << it->second << endl;
-            }
-
+            almacen.inventario(cout);
         } else if (inst == "escribir") {
             IdSala id_sala;
             cin >> id_sala;

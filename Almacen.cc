@@ -61,10 +61,10 @@ Almacen::Almacen() {} // Constructor por defecto
 //-----------------
 
 bool Almacen::poner_prod(IdProducto id_producto) {
-    Inventario::iterator it = productos.find(id_producto);
-    if (it != productos.end()) return false;
-    productos.insert({id_producto, 0});
-    return true;
+    return productos.insert({id_producto, 0}).second;
+    // Intenta insertar el producto (con 0 elementos).
+    // Si no existe, Inventario::insert lo crea y retorna un pair cuyo segundo
+    // elemento es true. Si ya existe, es false, y no modifica el inventario.
 }
 
 bool Almacen::quitar_prod(IdProducto id_producto) {
@@ -93,19 +93,22 @@ int Almacen::num_salas() const {
 }
 
 int Almacen::consultar_prod(IdProducto id_producto) const {
-    map<IdProducto, int>::const_iterator it;
+    Inventario::const_iterator it;
     it = productos.find(id_producto);
     if (it == productos.end()) return -1;
     return it->second;
 }
 
-const map<IdProducto, int> &Almacen::inventario() const {
-    return productos;
-}
-
 //----
 // I/O
 //----
+
+void Almacen::inventario(ostream &os) const {
+    Inventario::const_iterator it;
+    for (it = productos.begin(); it != productos.end(); ++it) {
+        os << "  " << it->first << " " << it->second << endl;
+    }
+}
 
 void Almacen::leer(int num_salas, istream &is) {
     leer_estructura(is, this->estructura_salas);

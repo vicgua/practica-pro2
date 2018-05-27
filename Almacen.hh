@@ -192,11 +192,13 @@ public:
     int consultar_prod(IdProducto id_producto) const;
 
     /** Inventario de los productos.
+     * @param os
+     * Stream de salida.
      *
-     * @returns
-     * Mapa de [producto &rarr; número de ítems].
+     * @post
+     * El contenido del inventario se ha escrito por orden alfabético en @c os
      */
-    const Inventario &inventario() const;
+    void inventario(ostream &os) const;
 
     /** Lee las salas por un stream.
      *
