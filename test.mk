@@ -16,3 +16,4 @@ custom.inp custom.cor: testpp.py custom_tests/*
 .PHONY: clean
 clean:
 	rm -vf custom.inp custom.cor
+

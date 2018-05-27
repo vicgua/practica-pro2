@@ -86,21 +86,6 @@ private:
      */
     static bool comp_IdProducto(const IdProducto &a, const IdProducto &b);
 
-    /** Copia la estantería actual en otra estantería, compactándola.
-     *
-     * @param[in,out] dest
-     * Vector de destino.
-     *
-     * @pre
-     * @c dest.size() >= @ref elementos
-     *
-     * @post
-     * <tt>dest[0..elementos]</tt> contiene todos los elementos de la estantería
-     * actual, en el mismo orden, pero sin espacios entre ellos; el resto del
-     * vector no se ha modificado.
-     */
-    void copia_compactada(Estanteria &dest) const;
-
 public:
     /// Crea una sala vacía.
     Sala();

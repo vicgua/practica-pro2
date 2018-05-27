@@ -5,7 +5,6 @@
 #ifndef NO_DIAGRAM
 #    include <algorithm> // std::sort
 #    include <cassert>
-#    include <utility> // std::move
 #endif
 
 /*------------------+
@@ -14,31 +13,6 @@
 
 bool Sala::comp_IdProducto(const IdProducto &a, const IdProducto &b) {
     return (not a.empty()) and (b.empty() or (a < b));
-}
-
-/*------------------+
- | Métodos privados |
- +------------------*/
-
-void Sala::copia_compactada(Estanteria &dest) const {
-    assert(dest.size() >= elementos);
-    if (elementos == 0) return;
-    Estanteria::const_iterator it_orig = estanteria.begin();
-    Estanteria::iterator it_dest = dest.begin();
-    int procesados = 0;
-    // Invariantes:
-    //  - it_orig < estanteria.end; it_dest < dest.end
-    //  - [dest.begin, it_dest) no contiene elementos nulos.
-    //  - [it_dest, dest.end) contiene solo elementos nulos.
-    while (procesados < elementos) {
-        assert(it_orig != estanteria.end() and it_dest != dest.end());
-        if (not it_orig->empty()) {
-            *it_dest = *it_orig;
-            ++it_dest;
-            ++procesados;
-        }
-        ++it_orig;
-    }
 }
 
 /*---------------+
@@ -125,17 +99,8 @@ bool Sala::redimensionar(int filas, int columnas) {
     int nuevo_tamano = filas * columnas;
     if (nuevo_tamano < elementos)
         return false; // No cabrían los elementos actuales
-    if (nuevo_tamano <= estanteria.capacity()) {
-        // La estantería puede ampliarse / reducirse sin reubicar la estantería
-        compactar();
-        estanteria.resize(nuevo_tamano, "");
-    } else {
-        // Compactamos y redimensionamos a la vez, evitando la reubicación de la
-        // estantería
-        Estanteria nueva_estanteria(nuevo_tamano, "");
-        copia_compactada(nueva_estanteria);
-        estanteria = move(nueva_estanteria);
-    }
+    compactar();
+    estanteria.resize(nuevo_tamano, "");
     this->filas = filas;
     this->columnas = columnas;
     return true;

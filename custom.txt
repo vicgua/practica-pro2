@@ -1,0 +1,339 @@
+3
+1 2 0 0 3 0 0
+1 1
+1 2
+1 1
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Pruebas para distribuir
+
+escribir 1
+  NULL
+  0
+escribir 2
+  NULL NULL
+  0
+escribir 3
+  NULL
+  0
+poner_prod ABCD
+poner_prod WXYZ
+distribuir ABCD 3
+  0
+distribuir WXYZ 1
+  0
+escribir 1
+  ABCD
+  1
+  ABCD 1
+escribir 2
+  ABCD WXYZ
+  2
+  ABCD 1
+  WXYZ 1
+escribir 3
+  ABCD
+  1
+  ABCD 1
+quitar_items 3 ABCD 1
+  0
+distribuir ABCD 1; La rama izquierda está llena, así que aunque haya espacio
+; en la derecha, el producto se devuelve.
+  1
+poner_items 3 ABCD 1
+  0
+distribuir WXYZ 2
+  2
+escribir 1
+  ABCD
+  1
+  ABCD 1
+escribir 2
+  ABCD WXYZ
+  2
+  ABCD 1
+  WXYZ 1
+escribir 3
+  ABCD
+  1
+  ABCD 1
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Pruebas para redimensionar
+
+quitar_items 2 ABCD 1
+  0
+escribir 2
+  NULL WXYZ
+  1
+  WXYZ 1
+redimensionar 2 5 5
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  WXYZ NULL NULL NULL NULL
+  1
+  WXYZ 1
+poner_items 2 WXYZ 1
+  0
+redimensionar 2 1 1
+  error
+; A matriz vertical
+redimensionar 2 5 1
+escribir 2
+  NULL
+  NULL
+  NULL
+  WXYZ
+  WXYZ
+  2
+  WXYZ 2
+; A una matriz horizontal
+redimensionar 2 1 5
+escribir 2
+  WXYZ WXYZ NULL NULL NULL
+  2
+  WXYZ 2
+; A una matriz cuadrada (como la que había antes)
+redimensionar 2 5 5
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  WXYZ WXYZ NULL NULL NULL
+  2
+  WXYZ 2
+quitar_items 2 WXYZ 1
+  0
+; Sin cambiar el tamaño
+redimensionar 2 5 5
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Pruebas para compactar
+
+; (Preparación para el test siguiente)
+poner_prod PADD; (Padding)
+poner_items 2 PADD 1
+  0
+poner_items 2 WXYZ 1
+  0
+poner_items 2 ABCD 2
+  0
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  WXYZ PADD WXYZ ABCD ABCD
+  5
+  ABCD 2
+  PADD 1
+  WXYZ 2
+quitar_items 2 PADD 10
+  9
+; Compactar con un vacío entre dos productos
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  WXYZ NULL WXYZ ABCD ABCD
+  4
+  ABCD 2
+  WXYZ 2
+compactar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  WXYZ WXYZ ABCD ABCD NULL
+  4
+  ABCD 2
+  WXYZ 2
+quitar_items 2 WXYZ 1
+  0
+; Compactar con un vacío antes de los productos
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL WXYZ ABCD ABCD NULL
+  3
+  ABCD 2
+  WXYZ 1
+compactar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  WXYZ ABCD ABCD NULL NULL
+  3
+  ABCD 2
+  WXYZ 1
+quitar_items 2 ABCD 2
+  0
+; Si está lleno
+poner_items 2 WXYZ 25
+  1
+compactar 2
+escribir 2
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  WXYZ WXYZ WXYZ WXYZ WXYZ
+  25
+  WXYZ 25
+; Si está vacío
+quitar_items 2 WXYZ 25
+  0
+compactar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  0
+; Utilitzant més d'una fila
+poner_items 2 WXYZ 4
+  0
+poner_items 2 ABCD 4
+  0
+quitar_items 2 ABCD 2
+  0
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL ABCD ABCD NULL NULL
+  WXYZ WXYZ WXYZ WXYZ NULL
+  6
+  ABCD 2
+  WXYZ 4
+compactar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  ABCD NULL NULL NULL NULL
+  WXYZ WXYZ WXYZ WXYZ ABCD
+  6
+  ABCD 2
+  WXYZ 4
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Pruebas para reorganizar
+
+quitar_items 2 WXYZ 4
+  0
+redimensionar 2 1 1
+  error
+redimensionar 2 5 2
+escribir 2
+  NULL NULL
+  NULL NULL
+  NULL NULL
+  NULL NULL
+  ABCD ABCD
+  2
+  ABCD 2
+redimensionar 2 2 5
+escribir 2
+  NULL NULL NULL NULL NULL
+  ABCD ABCD NULL NULL NULL
+  2
+  ABCD 2
+quitar_items 2 ABCD 1
+  0
+poner_items 2 WXYZ 3
+  0
+poner_items 2 PADD 1
+  0
+poner_items 2 ABCD 1
+  0
+quitar_items 2 PADD 1
+  0
+quitar_prod PADD
+escribir 2
+  ABCD NULL NULL NULL NULL
+  WXYZ ABCD WXYZ WXYZ NULL
+  5
+  ABCD 2
+  WXYZ 3
+
+
+reorganizar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  ABCD ABCD WXYZ WXYZ WXYZ
+  5
+  ABCD 2
+  WXYZ 3
+quitar_items 2 ABCD 2
+  0
+reorganizar 2
+escribir 2
+  NULL NULL NULL NULL NULL
+  WXYZ WXYZ WXYZ NULL NULL
+  3
+  WXYZ 3
+quitar_items 2 WXYZ 3
+  0
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Más pruebas para distribuir. Estas dependen en el estado dejado por las pruebas anteriores.
+
+escribir 1
+  ABCD
+  1
+  ABCD 1
+escribir 2
+  NULL NULL NULL NULL NULL
+  NULL NULL NULL NULL NULL
+  0
+escribir 3
+  ABCD
+  1
+  ABCD 1
+quitar_items 1 ABCD 1
+  0
+escribir 1
+  NULL
+  0
+; Si se queda sin producto antes de llegar a las hojas
+distribuir ABCD 1
+  0
+escribir 1
+  ABCD
+  1
+  ABCD 1
+inventario
+  ABCD 2
+  WXYZ 0
+quitar_prod WXYZ; Este producto ya no existe
+inventario
+  ABCD 2
+; Si no cabe más producto
+poner_items 2 ABCD 10
+  0
+escribir 2
+  ABCD ABCD ABCD ABCD ABCD
+  ABCD ABCD ABCD ABCD ABCD
+  10
+  ABCD 10
+distribuir ABCD 20
+  20
+inventario
+  ABCD 12
