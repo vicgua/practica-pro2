@@ -86,6 +86,9 @@ private:
      */
     static bool comp_IdProducto(const IdProducto &a, const IdProducto &b);
 
+    /// .
+    void copia_compactada(Estanteria &dest) const;
+
 public:
     /// Crea una sala vacía.
     Sala();

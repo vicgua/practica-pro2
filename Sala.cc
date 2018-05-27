@@ -16,6 +16,31 @@ bool Sala::comp_IdProducto(const IdProducto &a, const IdProducto &b) {
     return (not a.empty()) and (b.empty() or (a < b));
 }
 
+//-----------------
+// Métodos privados
+//-----------------
+
+void Sala::copia_compactada(Estanteria &dest) const {
+    assert(dest.size() >= elementos);
+    if (elementos == 0) return;
+    Estanteria::const_iterator it_orig = estanteria.begin();
+    Estanteria::iterator it_dest = dest.begin();
+    int procesados = 0;
+    // Invariantes:
+    //  - it_orig < estanteria.end; it_dest < dest.end
+    //  - [dest.begin, it_dest) no contiene elementos nulos.
+    //  - [it_dest, dest.end) contiene solo elementos nulos.
+    while (procesados < elementos) {
+        assert(it_orig != estanteria.end() and it_dest != dest.end());
+        if (not it_orig->empty()) {
+            *it_dest = *it_orig;
+            ++it_dest;
+            ++procesados;
+        }
+        ++it_orig;
+    }
+}
+
 //--------------
 // Constructores
 //--------------
@@ -45,9 +70,7 @@ int Sala::poner_items(IdProducto producto, int cantidad) {
             ++elementos;
         }
     }
-    if (anadidos > 0) {
-        inventario[producto] += anadidos;
-    }
+    if (anadidos > 0) inventario[producto] += anadidos;
     return cantidad;
 }
 
@@ -72,18 +95,25 @@ int Sala::quitar_items(IdProducto producto, int cantidad) {
 }
 
 void Sala::compactar() {
+    if (elementos == filas * columnas)
+        return; // Estantería llena, no es necesario compactar
     Estanteria::iterator it_done = estanteria.begin();
     Estanteria::iterator it_op = estanteria.begin();
-    while (it_op != estanteria.end()) {
+    int procesados = 0;
+    // Invariantes:
+    //  - it_done <= it_op < end
+    //  - [begin, it_done) no contiene elementos nulos (si begin != it_done)
+    //  - [it_done, it_op) contiene solo elementos nulos (si it_done != it_op)
+    //  - [it_op, end) contiene los elementos no procesados
+    while (procesados < elementos) {
+        assert(it_op != estanteria.end() and it_done != estanteria.end());
         if (not it_op->empty()) {
-            *it_done = *it_op;
+            assert(it_op == it_done or *it_done == "");
+            swap(*it_op, *it_done);
             ++it_done;
+            ++procesados;
         }
         ++it_op;
-    }
-    while (it_done != estanteria.end()) {
-        *it_done = "";
-        ++it_done;
     }
 }
 
@@ -93,16 +123,19 @@ void Sala::reorganizar() {
 
 bool Sala::redimensionar(int filas, int columnas) {
     int nuevo_tamano = filas * columnas;
-    if (nuevo_tamano < elementos) return false;
-    Estanteria nueva_est(nuevo_tamano, "");
-    int ni = 0;
-    for (int i = 0; i < estanteria.size(); ++i) {
-        if (not estanteria[i].empty()) {
-            nueva_est[ni] = estanteria[i];
-            ++ni;
-        }
+    if (nuevo_tamano < elementos)
+        return false; // No cabrían los elementos actuales
+    if (nuevo_tamano <= estanteria.capacity()) {
+        // La estantería puede ampliarse / reducirse sin reubicar la estantería
+        compactar();
+        estanteria.resize(nuevo_tamano, "");
+    } else {
+        // Compactamos y redimensionamos a la vez, evitando la reubicación de la
+        // estantería
+        Estanteria nueva_estanteria(nuevo_tamano, "");
+        copia_compactada(nueva_estanteria);
+        estanteria = move(nueva_estanteria);
     }
-    estanteria = move(nueva_est);
     this->filas = filas;
     this->columnas = columnas;
     return true;
