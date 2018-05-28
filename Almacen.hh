@@ -306,7 +306,7 @@ public:
      * Identificador de la sala.
      *
      * @pre
-     * 0 < @c sala <= @ref num_salas.
+     * 0 < @c id_sala <= @ref num_salas.
      *
      * @post
      * La estantería de la sala @c sala está ordenada y compactada.
@@ -334,7 +334,7 @@ public:
      * sala no cabrían en el nuevo tamaño. No se ha modificado el objeto.
      *
      * @pre
-     * 0 < @c sala <= @ref num_salas.
+     * 0 < @c id_sala <= @ref num_salas.
      *
      * @see
      * Sala::redimensionar
@@ -370,7 +370,7 @@ public:
      * Stream al que escribir la estantería.
      *
      * @pre
-     * 0 < @c sala <= @ref num_salas.
+     * 0 < @c id_sala <= @ref num_salas.
      *
      * @post
      * La estantería se ha escrito a @c os tal y como sería realmente (con el

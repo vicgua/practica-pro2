@@ -3,7 +3,7 @@
  */
 #include "Sala.hh"
 #ifndef NO_DIAGRAM
-#    include <algorithm> // std::sort
+#    include <algorithm> // std::sort, std::min
 #    include <cassert>
 #endif
 
@@ -25,7 +25,7 @@ Sala::Sala(int filas, int columnas) {
     assert(filas > 0 and columnas > 0);
     this->filas = filas;
     this->columnas = columnas;
-    this->elementos = 0;
+    elementos = 0;
     estanteria = Estanteria(filas * columnas, "");
 }
 
@@ -33,37 +33,49 @@ Sala::Sala(int filas, int columnas) {
  | Métodos públicos |
  +------------------*/
 int Sala::poner_items(IdProducto producto, int cantidad) {
-    if (elementos == filas * columnas)
-        return cantidad; // No cabe ningún ítem en esta sala
-    int anadidos = 0;
-    for (int i = 0; cantidad > 0 and i < estanteria.size(); ++i) {
-        if (estanteria[i].empty()) {
-            estanteria[i] = producto;
-            --cantidad;
-            ++anadidos;
-            ++elementos;
+    assert(cantidad >= 0);
+
+    // Determina el número de elementos a añadir
+    int anadir = min(cantidad, filas * columnas - elementos);
+    if (anadir == 0) return cantidad;
+    inventario[producto] += anadir;
+    elementos += anadir;
+    cantidad -= anadir;
+
+    Estanteria::iterator it;
+    for (it = estanteria.begin(); anadir > 0; ++it) {
+        assert(it != estanteria.end());
+        if (it->empty()) {
+            *it = producto;
+            --anadir;
         }
     }
-    if (anadidos > 0) inventario[producto] += anadidos;
     return cantidad;
 }
 
 int Sala::quitar_items(IdProducto producto, int cantidad) {
-    Inventario::iterator it = inventario.find(producto);
-    if (it == inventario.end())
+    assert(cantidad >= 0);
+    Inventario::iterator iit = inventario.find(producto);
+    if (iit == inventario.end())
         return cantidad; // No hay ningún ítem en esta sala
-    int quitados = 0;
-    for (int i = 0; cantidad > 0 and i < estanteria.size(); ++i) {
-        if (estanteria[i] == producto) {
-            estanteria[i] = "";
-            --cantidad;
-            ++quitados;
-            --elementos;
+
+    // Determina el número de elementos a quitar
+    int quitar = min(cantidad, iit->second);
+    cantidad -= quitar;
+    iit->second -= quitar;
+    elementos -= quitar;
+
+    Estanteria::iterator eit;
+    for (eit = estanteria.begin(); quitar > 0; ++eit) {
+        assert(eit != estanteria.end());
+        if (*eit == producto) {
+            *eit = "";
+            --quitar;
         }
     }
-    it->second -= quitados;
-    if (it->second == 0) {
-        inventario.erase(it); // Elimina las entradas sin productos
+
+    if (iit->second == 0) {
+        inventario.erase(iit); // Elimina las entradas sin productos
     }
     return cantidad;
 }
@@ -96,6 +108,7 @@ void Sala::reorganizar() {
 }
 
 bool Sala::redimensionar(int filas, int columnas) {
+    assert(filas > 0 and columnas > 0);
     int nuevo_tamano = filas * columnas;
     if (nuevo_tamano < elementos)
         return false; // No cabrían los elementos actuales

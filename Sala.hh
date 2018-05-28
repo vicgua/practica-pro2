@@ -64,6 +64,9 @@ private:
      * - El número de ítems no nulos de @ref estanteria.
      * - La suma de los valores de @ref inventario.
      * - El valor de @ref elementos.
+     *
+     * @invariant
+     * @c elementos no contiene ningún producto con 0 ítems.
      */
     int elementos;
 
@@ -83,6 +86,11 @@ private:
      *
      * @param[in] a, b
      * Identificadores de producto a comparar.
+     *
+     * @returns
+     * - <tt>a < b</tt> para @c a, @c b != ""
+     * - @c false si a == ""
+     * - @c true si a != "", b == ""
      */
     static bool comp_IdProducto(const IdProducto &a, const IdProducto &b);
 

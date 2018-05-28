@@ -45,9 +45,9 @@ int Almacen::i_distribuir(const BinTree<IdSala> &tree, IdProducto id_producto,
     if (sobran == 0) return 0;
     int cantidad_right = sobran / 2;
     int cantidad_left = sobran - cantidad_right;
-    int sobran_left = i_distribuir(tree.left(), id_producto, cantidad_left);
     int sobran_right = i_distribuir(tree.right(), id_producto, cantidad_right);
-    return sobran_left + sobran_right;
+    int sobran_left = i_distribuir(tree.left(), id_producto, cantidad_left);
+    return sobran_right + sobran_left;
 }
 
 /*---------------+
@@ -89,7 +89,7 @@ int Almacen::distribuir(IdProducto id_producto, int cantidad) {
  +-------------*/
 
 int Almacen::num_salas() const {
-    return this->salas.size();
+    return salas.size();
 }
 
 int Almacen::consultar_prod(IdProducto id_producto) const {
