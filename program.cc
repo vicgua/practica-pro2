@@ -129,3 +129,31 @@ int main() {
     }
     cout << "fin" << endl;
 }
+
+/** @mainpage
+ *
+ * @section diseno Diseño del programa
+ *
+ * El programa está dividido en dos clases (Almacen y Sala) y dos estructuras
+ * auxiliares definidas como @em typedefs (@ref IdProducto e @ref Inventario).
+ *
+ * El usuario deberá usar Almacen que, cuando sea conveniente, llamará a una
+ * Sala, que guarda internamente. La comunicación con algunos métodos de Almacen
+ * (Almacen::inventario, Almacen::leer y Almacen::escribir) se realiza mediante
+ * @em streams para evitar pasar estructuras complejas de datos. Esto facilita
+ * la implementación actual, ya que utilizamos la entrada/salida estándar.
+ *
+ * @section trabajo_en_grupo Trabajo en grupo
+ *
+ * [censurado]
+ *
+ * @section documentacion Sobre la documentación
+ *
+ * Para evitar repeticiones innecesarias y facilitar la lectura, he
+ * tomado algunas convenciones en la documentación:
+ * - Si en una función no figura ninguna precondición, ésta tiene una
+ *  precondición de "cierto".
+ * - Todas las funciones que retornen un valor tienen como postcondición que
+ *  éste se ajusta a lo descrito en los apartados "Devuelve" y "Valores
+ *  devueltos", además del resto de postcondiciones (si hay).
+ */
