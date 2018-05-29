@@ -70,8 +70,7 @@ bool Almacen::poner_prod(IdProducto id_producto) {
 bool Almacen::quitar_prod(IdProducto id_producto) {
     Inventario::iterator it;
     it = productos.find(id_producto);
-    if (it == productos.end()) return false;
-    if (it->second > 0) return false;
+    if (it == productos.end() or it->second > 0) return false;
     productos.erase(it);
     return true;
 }
