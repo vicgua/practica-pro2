@@ -91,11 +91,19 @@ private:
      * - <tt>a < b</tt> para @c a, @c b != ""
      * - @c false si a == ""
      * - @c true si a != "", b == ""
+     *
+     * @cost
+     * Hasta lineal en la longitud de a y b (o el coste de
+     * <tt>std::string::operator<</tt>)
      */
     static bool comp_IdProducto(const IdProducto &a, const IdProducto &b);
 
 public:
-    /// Crea una sala vacía.
+    /** Crea una sala vacía.
+     *
+     * @cost
+     * Constante
+     */
     Sala();
 
     /** Crea una sala con un determinado número de filas y columnas.
@@ -108,6 +116,9 @@ public:
      *
      * @pre
      * @c filas > 0; @c columnas > 0.
+     *
+     * @cost
+     * Lineal en el número de filas y columnas
      */
     Sala(int filas, int columnas);
 
@@ -129,6 +140,9 @@ public:
      * Se han añadido min(`cantidad`, espacio libre en la sala) ítems del
      * producto @c id_producto a la sala; si @e return > 0 &rArr; sala llena; @b
      * NO se han añadido los productos al inventario del almacén.
+     *
+     * @cost
+     * Lineal en el número de productos añadidos
      *
      * @see
      * Almacen::poner_items
@@ -156,6 +170,9 @@ public:
      * ítems en la sala; @b NO se han quitado los productos del inventario del
      * almacén.
      *
+     * @cost
+     * Lineal en el número de elementos quitados
+     *
      * @see
      * Almacen::quitar_items
      */
@@ -169,6 +186,9 @@ public:
      * @post
      * La estantería está compactada.
      *
+     * @cost
+     * Lineal en el tamaño de la estantería
+     *
      * @see
      * Almacen::compactar
      */
@@ -180,6 +200,9 @@ public:
      *
      * @post
      * La estantería está ordenada y compactada.
+     *
+     * @cost
+     * Linerítmico, de media, en el tamaño de la estantería
      *
      * @see
      * compactar,
@@ -203,6 +226,9 @@ public:
      * @pre
      * @c filas > 0; @c columnas > 0.
      *
+     * @cost
+     * Lineal en el tamaño de la estantería
+     *
      * @see
      * Almacen::redimensionar
      */
@@ -219,6 +245,9 @@ public:
      * @pre
      * 0 < @c f <= Número de filas; 0 < @c c <= Número de columnas.
      *
+     * @cost
+     * Constante
+     *
      * @see
      * Almacen::consultar_pos
      */
@@ -232,6 +261,9 @@ public:
      * @post
      * La estantería se ha escrito a @c os tal y como sería realmente (con el
      * (0, 0) en la esquina inferior izquierda).
+     *
+     * @cost
+     * Lineal en el tamaño de la estantería
      *
      * @see
      * Almacen::escribir

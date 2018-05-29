@@ -46,6 +46,9 @@ private:
      * @post
      * Se han leído elementos de @c is hasta formar un árbol (en preorden, con 0
      * indicando el árbol nulo), que se encuentra en @c tree.
+     *
+     * @cost
+     * Lineal respecto al número de nodos del árbol.
      */
     static void leer_estructura(istream &is, BinTree<IdSala> &tree);
 
@@ -59,6 +62,9 @@ private:
      *
      * @pre
      * 1 <= @c id_sala <= número de salas
+     *
+     * @cost
+     * Constante
      */
     Sala &sala(IdSala id_sala);
 
@@ -87,12 +93,19 @@ private:
      * @post
      * Los ítems han sido distribuidos por el almacén, según la política de
      * distribución.
+     *
+     * @cost
+     * Lineal respecto a @c cantidad
      */
     int i_distribuir(const BinTree<IdSala> &tree, IdProducto id_producto,
                      int cantidad);
 
 public:
-    /// Crea un almacén vacío.
+    /** Crea un almacén vacío.
+     *
+     * @cost
+     * Constante
+     */
     Almacen();
 
     /** Añadir un producto.
@@ -108,6 +121,9 @@ public:
      *
      * @post
      * Si el producto @c id_producto no existía, ha sido añadido con 0 unidades.
+     *
+     * @cost
+     * Logarítmico en la cantidad de productos ya existentes
      */
     bool poner_prod(IdProducto id_producto);
 
@@ -122,6 +138,9 @@ public:
      * @retval false
      * El producto @c id_producto no existe o tiene alguna unidad. El objeto no
      * ha sido modificado.
+     *
+     * @cost
+     * Logarítmico en la cantidad de productos
      *
      * @post
      * Si el producto @c id_producto existía y tenía 0 unidades, ha sido
@@ -162,6 +181,9 @@ public:
      * Si el producto @c id_producto existe, los ítems han sido distribuidos por
      * el almacén, según la política de distribución; si @e return > 0 &rArr; el
      * almacén está lleno.
+     *
+     * @cost
+     * Lineal respecto a @c cantidad
      */
     int distribuir(IdProducto id_producto, int cantidad);
 
@@ -175,6 +197,9 @@ public:
      * @c num_salas > 0; las salas son consecutivas desde 1 hasta el total de
      * salas (es decir, que con n salas, estas tienen identificadores {1, 2,
      * ..., n-1, n})
+     *
+     * @cost
+     * Constante
      */
     int num_salas() const;
 
@@ -188,6 +213,9 @@ public:
      *
      * @retval -1
      * El producto @c id_producto no existe.
+     *
+     * @cost
+     * Logarítmico en el número de productos
      */
     int consultar_prod(IdProducto id_producto) const;
 
@@ -197,6 +225,9 @@ public:
      *
      * @post
      * El contenido del inventario se ha escrito por orden alfabético en @c os
+     *
+     * @cost
+     * Lineal en el número de productos
      */
     void inventario(ostream &os) const;
 
@@ -213,6 +244,9 @@ public:
      * @post
      * El objeto ahora tiene @em n salas con la estructura y dimensiones
      * dadas en @c is.
+     *
+     * @cost
+     * Lineal en el número de salas
      */
     void leer(istream &is);
 
@@ -246,6 +280,10 @@ public:
      * si @e return > 0 &rArr; sala llena. Si no existe, no se ha modificado el
      * objeto.
      *
+     * @cost
+     * Lineal en la cantidad de ítems añadidos, logarítmico en la cantidad de
+     * productos del almacén
+     *
      * @see
      * Sala::poner_items
      */
@@ -278,6 +316,10 @@ public:
      * si @e return > 0 &rArr; No quedan ítems en la sala. Si no existe, no se
      * ha modificado el objeto.
      *
+     * @cost
+     * Lineal en la cantidad de ítems añadidos, logarítmico en la cantidad de
+     * productos del almacén
+     *
      * @see
      * Sala::quitar_items
      */
@@ -293,6 +335,9 @@ public:
      *
      * @post
      * La estantería de la sala @c sala está compactada.
+     *
+     * @cost
+     * Lineal en el tamaño de la estantería de la sala
      *
      * @see
      * Sala::compactar
@@ -336,6 +381,9 @@ public:
      * @pre
      * 0 < @c id_sala <= @ref num_salas.
      *
+     * @cost
+     * Linearítmico, de media, en el tamaño de la estantería de la sala
+     *
      * @see
      * Sala::redimensionar
      */
@@ -356,6 +404,9 @@ public:
      * @c f <= Número de filas; @c c <= Número de columnas; 0 < id_sala <=
      * @ref num_salas.
      *
+     * @cost
+     * Constante
+     *
      * @see
      * Sala::consultar_pos
      */
@@ -375,6 +426,9 @@ public:
      * @post
      * La estantería se ha escrito a @c os tal y como sería realmente (con el
      * (0, 0) en la esquina inferior izquierda).
+     *
+     * @cost
+     * Lineal en el tamaño de la estantería de la sala
      *
      * @see
      * Sala::escribir
